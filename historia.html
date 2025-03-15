@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eruma TCG</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar">
+      <img src="logo.png" alt="Logo" class="logo">
+      <ul class="nav-links">
+        <li><a href="#home">Início</a></li>
+        <li><a href="#introducao">Introdução</a></li>
+        <li><a href="#historia">História</a></li>
+        <li><a href="#como-jogar">Como Jogar</a></li>
+        <li><a href="#cartas">Cartas</a></li>
+        <li><a href="#jogue-agora">Jogue Agora</a></li>
+        <li><a href="#communidade">Comunidade</a></li>
+      </ul>
+    </nav>
+  </header>
+
+    <!-- Banner no topo -->
+  <div class="banner">
+    <!-- A imagem de fundo será ajustada conforme a largura -->
+  </div>
+
+    <section>
+      <div class="content-no-top">
+        <br><h1 class="pirata-one-regular">As Facções</h1>
+          <p>Há cinco grandes grupos organizados lutando por poder, riqueza e vingança em Eruma.</p>
+      </div>
+        <!-- Imagens das Facções que deslizam -->
+  <div class="scrolling-images">
+    <div class="image-container"><br><br><br><br><br><br><br>
+      <div class="foil-card" onmousemove="rotateCard(event, this)" onmouseout="resetCard(this)">
+        <div class="foil-card-inner">
+            <div class="foil-card-front" style="background-image: url('faccao01.png');background-repeat: no-repeat;"></div>
+        </div>
+    </div>
+      <p class="text-content"><span class="pirata-two">Magna Lux</span><br><em>"illuminati et exterminatti"</em><br>
+        Guiados pela luz dO Grandioso, é a doutrina religiosa dominante no presente, autoproclamada como a força purificadora da criação. 
+Para estes fanáticos, ordem é sinônimo de perfeição e qualquer desvio da pureza divina é uma afronta que deve ser purgada.
+Sua liderança quer destruir os Olhos do Abismo para impedir uma insurgência dos hereges e impuros e exterminá-los.
+    </p>
+    </div>
+    <div class="image-container"><br><br><br><br><br><br><br>
+      <p class="text-content"><span class="pirata-two">Vox Umbra</span><br><em>"malum in se"</em><br>
+        Uma seita que rasteja nas sombras e deseja a restauração das tradições do passado. Estes fanáticos pregam que as guerras e 
+pragas que consomem o mundo são consequências do fim do culto aos deuses Antigos, substituídos por um novo falso deus.
+Creem que seu líder é o escolhido dos Antigos para herdar o poder armazenado nos Olhos do Abismo e punir a humanidade.
+    </p>
+    <div class="foil-card" onmousemove="rotateCard(event, this)" onmouseout="resetCard(this)">
+        <div class="foil-card-inner">
+            <div class="foil-card-front" style="background-image: url('faccao02.png');background-repeat: no-repeat;"></div>
+        </div>
+    </div>
+    </div>
+    <div class="image-container"><br><br><br><br><br><br><br>
+      <div class="foil-card" onmousemove="rotateCard(event, this)" onmouseout="resetCard(this)">
+        <div class="foil-card-inner">
+            <div class="foil-card-front" style="background-image: url('faccao03.png');background-repeat: no-repeat;"></div>
+        </div>
+    </div>
+      <p class="text-content"><span class="pirata-two">Irmandade da Libertácia</span><br><em>"ad gloriam et libertatem"</em><br>
+        Piratas, fugitivos da lei e ex-escravos motivados por riqueza e luxúria. Não se importam com o grande conflito entre os fanáticos 
+e se organizaram em um governo que detém o controle de cidades portuárias em Eruma, onde eles fazem as leis. Seus líderes são
+eleitos por voto popular e recebem uma parte dos saques para preservar níveis toleráveis de violência e trapaça entre eles.
+    </p>
+    </div>
+    <div class="image-container"><br><br><br><br><br><br><br>
+      <p class="text-content"><span class="pirata-two">Sindicato Sangricida</span><br><em>"memento mori"</em><br>
+        Mercenários que trabalham para quem pagar mais, cumprindo contratos de assassinato, sequestro e espionagem. São liderados por um 
+grupo secreto e temido chamado "Conselho Vermelho" que é composto pelos patriarcas e matriarcas das maiores famílias e clãs 
+criminosos do presente. O acesso à organização é muito restrito e seus planos são um mistério.
+    </p>
+    <div class="foil-card" onmousemove="rotateCard(event, this)" onmouseout="resetCard(this)">
+        <div class="foil-card-inner">
+            <div class="foil-card-front" style="background-image: url('faccao04.png');background-repeat: no-repeat;"></div>
+        </div>
+    </div>
+    </div>
+    <div class="image-container"><br><br><br><br><br><br><br>
+        <div class="foil-card" onmousemove="rotateCard(event, this)" onmouseout="resetCard(this)">
+          <div class="foil-card-inner">
+              <div class="foil-card-front" style="background-image: url('faccao05.png');background-repeat: no-repeat;"></div>
+          </div>
+      </div>
+        <p class="text-content"><span class="pirata-two">Circo dos Horrores</span><br><em>"oderint dum metuant"</em><br>
+          Uma aliança entre aqueles que foram chamados de monstros e bruxas e marginalizados pela sociedade. Boa parte deles quer aproveitar
+          a oportunidade do exílio para construir um lar, mas a maioria é motivada por vingança e deseja a destruição de seus opressores.
+          Viajam em caravanas itinerantes pelas terras de Eruma, sem uma liderança muito rígida.
+      </p>
+      </div>
+  </div>
+  </section>
+
+  <!-- Textos longos -->
+  <section>
+    <div class="content-no-top">
+      <h1 class="pirata-one-regular">Eruma</h1>
+        <p>O continente insular de Eruma era um mito até o século passado. Lendas antigas contavam que era o lar de imponentes impérios e
+          cidades feitas de ouro e fora destruído pela fúria dos Antigos deuses em um grande cataclisma.
+          Acreditava-se que era um conto cautelar criado pela Magna Lux, que declarou a existência de um único deus para combater os 
+          costumes dos povos bárbaros invasores, que adoravam muitos deuses, hoje chamados de Antigos.<br>
+          Contudo, o capitão pirata Harald "Barba Suja", ao atravessar o Mar Sussurrante, águas conhecidas por enlouquecer tripulações, 
+          chegou à costa do continente mítico. Ele descreveu a terra como "um lugar com cicatrizes profundas, ruínas silenciosas
+          e demônios espreitando nas sombras".
+          No entanto, a descoberta de pesadas moedas de ouro com estranhos símbolos o fez continuar suas explorações.<br><br></p>
+    </div>
+</section>
+
+<section>
+    <div class="content-no-top">
+      <h1 class="pirata-one-regular">A Profecia</h1>
+        <p>Nas montanhas de Eruma foi encontrado um monumento de pedra com inscrições em um idioma esquecido. Após o fracasso de muitos 
+          estudiosos em tentar decifrá-lo, uma jovem que fugia de um ataque à sua aldeia e se abrigou nas montanhas, compelida por uma 
+          força sobrenatural, invadiu as ruínas, derrubou os sentinelas e, debruçada sobre o monolito, proferiu no idioma comum o seu 
+          suposto conteúdo.<br> O texto ficou conhecido como "A Profecia Profana".<br>
+          O inexplicável evento revelou a existência de dez artefatos, perdidos em Eruma, chamados de "Olhos do Abismo", que concederiam 
+          poder imensurável à quem os reunísse.<br><br></p>
+    </div>
+</section>
+
+<section>
+    <div class="content-no-top">
+      <h1 class="pirata-one-regular">O Exílio</h1>
+        <p>A Ordem da Magna Lux, adoradora dO Grandioso, criador da luz e das trevas, da carne e do sangue e cuja palavra é o único caminho 
+          para a verdade e justiça, publicou há 200 anos o códice "Malleus Maleficarum". O tratado determinava os crimes e punições para os 
+          hereges, desviantes e impuros e seu conteúdo descrevia uma série de métodos de tortura e execução.<br>
+          Um círculo da Ordem estudava o monumento misterioso encontrado em Eruma e, após o evento em que seu conteúdo foi decifrado, o 
+          Conselho Superior decidiu que a Ordem precisava encontrar e destruir os "Olhos do Abismo". Com a desculpa de oferecer uma chance 
+          de redenção, incluiram no códice a condenação ao exílio em Eruma, o lugar mais brutal e perverso do mundo conhecido.<br> Contudo, os 
+          condenados ao exílio recebem ordens para explorar ruínas e criptas antigas em busca destes artefatos em troca do perdão da Ordem 
+          e de um lote de terra fértil no continente civilizado.<br><br></p>
+    </div>
+</section>
+
+<section>
+    <div class="content-no-top">
+    <img style="width: 80%; height: auto; max-width: 600px;" src="map.png" alt="Imagem que se move para cima" class="scroll-image">
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Eruma TCG. Copyright &copy; 2025 Fabio Esteves. All rights reserved.</p>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

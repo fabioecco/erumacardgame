@@ -1,0 +1,256 @@
+/* Resetando margens e padding */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Roboto", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+  color:#FFFFFF;
+  background-color:#000000;
+  overflow-x: clip; /* Impede o scroll horizontal indesejado */
+}
+
+.pirata-one-regular {
+  font-family: "Pirata One", serif;
+  font-weight: 400;
+  font-style: normal;
+  color:#e52e31;
+  text-shadow: 2px 2px #000000;
+}
+
+.pirata-two {
+  font-family: "Pirata One", serif;
+  font-size: 40px;
+  font-weight: 400;
+  font-style: normal;
+  color:#e52e31;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  z-index: 1000;
+}
+
+.navbar .logo {
+  width: auto;
+  height: 60px; /* Ajuste conforme necessário */
+  object-fit: contain;
+}
+
+.navbar .nav-links {
+  list-style: none;
+  display: flex;
+}
+
+.navbar .nav-links li {
+  margin: 0 15px;
+}
+
+.navbar .nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* Banner no topo */
+  .banner {
+    width: 100%;
+    height: 0;
+    padding-top: 45%; /* Mantém a proporção 16:9 da imagem!! Era 53 */
+    background: url('bannertopo.png') no-repeat center center;
+    background-size: cover; /* Ajusta a largura da imagem e mantém a altura proporcional */
+    z-index: 1; /* Garantindo que o banner tenha um z-index menor */
+    position: relative;
+  }
+
+/* Scroll Content */
+.scroll-content {
+  padding: 50px;
+  text-align: center;
+}
+
+.scroll-image {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Video Section */
+.video-section {
+  display: flex;
+    justify-content: center;
+    max-height: 620px;
+}
+
+/* Parallax Section */
+.parallax-section {
+  background-image: url('paralaxeruma.jpg');
+  height: 500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Parallax Section Larger */
+.parallax-section-large {
+  background-image: url('paralaxeruma.jpg');
+  height: 620px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Parallax Section Text */
+.parallax-section .content {
+  text-align: justify;
+  text-align-last: center;
+  color: white;
+  padding: 50px;
+    font-size: 24px;
+    /*line-height: 1.5; /* Ajusta o espaçamento entre linhas */
+    color: white; /* Cor branca para o texto */
+    max-width: 70vw; /* Limita a largura a 80% da janela */
+    margin: 0 auto; /* Centraliza o conteúdo horizontalmente */
+}
+
+/* Imagens deslizando da direita para o centro */
+.scrolling-images {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+/* Contêiner de cada imagem com texto */
+.image-container {
+  display: flex; /* Coloca a imagem e o texto lado a lado */
+  align-items: center; /* Alinha verticalmente no centro */
+  justify-content: space-between; /* Espaça o conteúdo */
+  width: 80%; /* O contêiner de imagem ocupa toda a largura disponível */
+  opacity: 0;
+  transform: translateX(100vw); /* Começa fora da tela à direita */
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out; /* Transição suave */
+  margin-bottom: 20px;
+}
+
+/* Estilo das imagens */
+.image-container img {
+  width: 25%; /* A imagem ocupará 45% do contêiner */
+  height: auto; /* Mantém a proporção da imagem */
+}
+
+/* Estilo do texto */
+.text-content {
+  width: 75%; /* O texto ocupará 45% do contêiner */
+  color: #fff; /* Cor do texto */
+  font-size: 22px; /* Tamanho do texto */
+  padding: 0px 20px 0px 15px; /* Espaçamento interno top right bottom left */
+  text-align: justify;
+}
+
+/* Quando a imagem e o texto estiverem visíveis */
+.image-container.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+  .content {
+    text-align: justify;
+    text-align-last: center;
+    font-size: 26px;
+    /*line-height: 1.5; /* Ajusta o espaçamento entre linhas */
+    color: white; /* Cor branca para o texto */
+    max-width: 70vw; /* Limita a largura a 80% da janela */
+    margin: 0 auto; /* Centraliza o conteúdo horizontalmente */
+    position: relative; /* Permite o uso do z-index */
+    z-index: 3; /* Valor maior que o do banner para sobreposição */
+    margin-top: -100px; /* Faz a imagem se mover ligeiramente para sobrepor o banner */
+  }
+
+  .content-no-top {
+    text-align: justify;
+    text-align-last: center;
+    font-size: 26px;
+    /*line-height: 1.5; /* Ajusta o espaçamento entre linhas */
+    color: white; /* Cor branca para o texto */
+    max-width: 70vw; /* Limita a largura a 80% da janela */
+    margin: 0 auto; /* Centraliza o conteúdo horizontalmente */
+    position: relative; /* Permite o uso do z-index */
+    z-index: 3; /* Valor maior que o do banner para sobreposição */
+  }
+
+  /* Estilo para a seção com animação de fade-in */
+.fade-in {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    padding: 50px;
+}
+
+.fade-in.visible {
+    opacity: 1;
+}
+
+/* Estilo para a seção com animação de movimento */
+.move-up {
+    transform: translateY(120px);
+    transition: transform 0.5s ease-in-out;
+    padding: 50px;
+    text-align: center;
+    position: relative; /* Permite o uso do z-index */
+    z-index: 2; /* Valor maior que o do banner para sobreposição */
+    margin-top: -100px; /* Faz a imagem se mover ligeiramente para sobrepor o banner */
+}
+
+.move-up.visible {
+    transform: translateY(0);
+}
+
+.foil-card {
+  width: 225px;
+  height: 311px;
+  position: relative;
+  margin: 10px;
+  perspective: 1000px;
+}
+
+.foil-card-inner {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+  transition: transform 0.1s;
+}
+
+.foil-card-front {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: center;
+  position: absolute;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* Footer */
+footer {
+  background-color:#FFFFFF;
+  color:#000000;
+  padding: 20px;
+  text-align: center;
+}
