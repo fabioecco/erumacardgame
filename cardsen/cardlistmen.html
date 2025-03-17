@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eruma TCG Deckbuilding Tool</title>
+    <style>
+        /* Reset de estilos e ajustes gerais */
+        body, html {
+            margin: 0;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        /* Layout de grade para áreas de cartas e deck */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(calc(33.33% - 20px), 1fr));
+            gap: 10px;
+            padding: 10px;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .card-container, .deck {
+            border: 2px dashed #000;
+            background-color: #f0f0f0;
+            padding: 10px;
+        }
+
+        .deck {
+            height: 300px;
+        }
+
+        .card {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+
+        /* Estilos para a sobreposição */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 35%;
+            left: 35%;
+            transform: translate(-25%, -25%);
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 90%;
+            color: white;
+        }
+
+        #expandedCard {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        /* Outros estilos */
+        button {
+            padding: 15px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+    <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
+    <script>
+        window.onload = function() {
+            loadTextFile();
+        };
+    </script>
+</head>
+<body>
+    <!--<h1>Eruma TCG Card Database</h1>-->
+    <img src="logodeckbuilding.png" alt="logo" style="width:200px;">
+    <p>
+        <a href="https://github.com/fabioecco/erumatcg/cardsen/cardlistmen.html"><i class="em em-flag-um" aria-role="presentation" aria-label="U.S. Outlying Islands Flag"></i></a>&nbsp;
+        <a href="https://github.com/fabioecco/erumatcg/cardspt/cardlistmpt.html"><i class="em em-flag-br" aria-role="presentation" aria-label="Brazil Flag"></i></a><br>
+        <strong>Sort or filter cards by specific words in their text using the search field.<br>Click on the card to enlarge it.</strong>
+    </p>
+
+    <div class="container" id="cardContainer"></div>
+
+    <!-- Barra de pesquisa -->
+    <p><input type="text" id="searchInput" onkeyup="searchCards()" placeholder="Card Search..."><br><br>
+    <button onclick="sortAlphabetically()">Sort by Name</button><br>
+    <button onclick="sortCardsByClass()">Sort by Class</button><br>
+    <button onclick="sortCardsByType()">Sort by Type</button></p>
+    
+    <!-- Sobreposição para exibir detalhes da carta -->
+    <div class="overlay" id="overlay">
+        <div class="card-details" id="cardDetails">
+            <img id="expandedCard" class="card" src="">
+            <div id="cardInfo"></div>
+            <button onclick="closeOverlay()">Close</button>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script>
+        const cardContainer = document.getElementById('cardContainer');
+        const rightArea = document.getElementById('rightArea');
+        const cards = [];
+
+        // Torna ambas as áreas classificáveis
+        $(".card-container, #rightArea").sortable({
+            connectWith: ".card-container, #rightArea", // Conectar ambas as áreas
+            helper: "clone",
+        });
+
+        // Função para exibir a sobreposição com detalhes da carta
+        function showCardOverlay(card) {
+            const name = card.getAttribute('data-name');
+            const cclass = card.getAttribute('data-cclass');
+            const description = card.getAttribute('data-description');
+            const type = card.getAttribute('data-type');
+            const imageSrc = card.getAttribute('data-image');
+
+            const expandedCard = document.getElementById('expandedCard');
+            expandedCard.src = imageSrc;
+
+            const cardInfo = document.getElementById('cardInfo');
+            cardInfo.innerHTML = `<p>Name: ${name}<br>Class: ${cclass}<br>Type: <i>${type}</i><br>Power: ${description}</p>`;
+
+            const overlay = document.getElementById('overlay');
+            overlay.style.display = 'block';
+        }
+
+        // Função para fechar a sobreposição
+        function closeOverlay() {
+            const overlay = document.getElementById('overlay');
+            overlay.style.display = 'none';
+        }
+
+        // Função para filtrar cartas com base na pesquisa
+        function searchCards() {
+            const searchInput = document.getElementById('searchInput');
+            const filter = searchInput.value.toLowerCase();
+
+            cards.forEach((card) => {
+                const searchName = card.getAttribute('data-name').toLowerCase();
+                const searchText = card.getAttribute('data-description').toLowerCase();
+                const searchType = card.getAttribute('data-type').toLowerCase();
+                const displayStyle = searchName.includes(filter) || searchText.includes(filter) || searchType.includes(filter) ? 'inline-block' : 'none';
+                card.style.display = displayStyle;
+            });
+        }
+
+        // Função para carregar o arquivo de texto
+        function loadTextFile() {
+            const content = `Charlotte	|Assassin|	Kill 1 card in any position.	| 	|deckbuildercards_001.png
+Makuna	|Assassin|	Kill 2 Henchmen in any position.	| 	|deckbuildercards_002.png
+Shimaru	|Assassin|	Whenever an enemy card flips face-up during this turn, kill it.	| Evasive	|deckbuildercards_003.png
+Picard and Boulle	|Assassin|	Kill 1 "Invulnerable" type card in any position.	| Slayer	|deckbuildercards_004.png
+Beetrice	|Assassin|	Whenever an enemy card steals a treasure during the opponent's turn, kill it.	| Flying	|deckbuildercards_005.png
+Toxique	|Assassin|	Whenever an enemy card flips face-up during the opponent's turn, kill it.	| 	|deckbuildercards_006.png
+Erzsebet	|Assassin|	Give one of your cards the Assassin Skill until the end of this turn.	| Invulnerable, Flying	|deckbuildercards_007.png
+Rhowl	|Assassin|	Flip all enemy cards face-down.	| Invulnerable	|deckbuildercards_008.png
+Tintin	|Assassin|	Give this card any Type.	| 	|deckbuildercards_009.png
+Grimas	|Assassin|	Use a Quick or Slow power from a card in any player’s Graveyard.	| 	|deckbuildercards_010.png
+Wicker	|Assassin|	Kill all enemy cards that do not move by the end of the opponent's turn.	| Slayer	|deckbuildercards_011.png
+Machado	|Assassin|	Kill all enemy cards in positions adjacent to this card.	| 	|deckbuildercards_012.png
+Muerte	|Assassin|	Draw up to 3 cards from your Graveyard.	| 	|deckbuildercards_013.png
+Sandiego	|Assassin|	Whenever this card kills another card during this turn, gain 2 treasures.	| 	|deckbuildercards_014.png
+Kuroshi	|Assassin|	Whenever your Assassins kill a card, gain 2 treasures.	| Evasive	|deckbuildercards_015.png
+Peekaboo	|Assassin|	Move this card up to 3 positions this turn.	| 	|deckbuildercards_016.png
+Karl and Sylv	|Assassin|	Kill 1 card in any position and move this card to the position of the killed card.	| Flying	|deckbuildercards_017.png
+Gallagher	|Assassin|	Whenever the opponent spends 1 action point, move this card 1 position, including to their zones.	| 	|deckbuildercards_018.png
+Araun	|Assassin|	Kill all exhausted enemy cards.	| 	|deckbuildercards_019.png
+Anaiti	|Assassin|	Draw 2 cards and discard 1 of them.	| Evasive	|deckbuildercards_020.png
+Zoltan	|Assassin|	Kill 1 card in any position, but flip it face-down instead of moving it to the graveyard or hand.	| Slayer	|deckbuildercards_021.png
+Miara	|Thief|	The opponent loses 1 action point in their next turn.	| 	|deckbuildercards_022.png
+Dejavu	|Thief|	Repeat the last power that was triggered.	| 	|deckbuildercards_023.png
+Cerebro	|Thief|	Use your action points to control 1 enemy card.	| 	|deckbuildercards_024.png
+Limbo	|Thief|	Place 1 Henchman from your hand into the opponent's hand.	| 	|deckbuildercards_025.png
+Alma	|Thief|	Move this card to any empty position, except in the opponent's zones.	| Invulnerable	|deckbuildercards_026.png
+Oberon	|Thief|	This card gains "Obstacle" type and cannot be banished.	| Flying	|deckbuildercards_027.png
+Replica	|Thief|	This card turns into a copy of another card. It does not turn back when prepared.	| 	|deckbuildercards_028.png
+Sumida	|Thief|	Swap positions with another card adjacent to this one.	| Evasive	|deckbuildercards_029.png
+Hanged Man	|Thief|	For each card you return to your hand during this turn, choose 1 enemy card to return to the opponent's hand.	| Flying	|deckbuildercards_030.png
+Didi and Dimbo	|Thief|	When this card dies, you gain 3 treasures.	| 	|deckbuildercards_031.png
+Magnete	|Thief|	Choose 1 enemy card and keep the treasures that card steals.	| 	|deckbuildercards_032.png
+Lavenza	|Thief|	Place 1 Spy from your Deck into your hand and shuffle this card back into your Deck.	| Regenerative	|deckbuildercards_033.png
+Barrel	|Thief|	Steal 3 treasures if this card is in the Treasure Zone.	| Strongman	|deckbuildercards_034.png
+Flamel	|Thief|	Double your Treasure.	| 	|deckbuildercards_035.png
+Renart	|Thief|	Whenever a "Flying" type card returns to your hand this turn, gain 1 treasure.	| 	|deckbuildercards_036.png
+Sayyida	|Thief|	Whenever this card steals treasures, kill 1 card in the same column as this one.	| 	|deckbuildercards_037.png
+Otylia	|Thief|	Whenever a player discards 1 card, gain 2 treasures.	| 	|deckbuildercards_038.png
+Baba	|Thief|	Gain 1 action point for each of your exhausted cards.	| Regenerative	|deckbuildercards_039.png
+Ganzu	|Thief|	Steal 2 treasures for each card you draw during this turn.	| 	|deckbuildercards_040.png
+Rox	|Thief|	Whenever an enemy card flips face-up during the opponent’s turn, gain 1 treasure.	| 	|deckbuildercards_041.png
+Genevieve	|Thief|	Return 1 "Frog" to the owner’s Extra Deck and play a card face-up in the position of that "Frog".	| 	|deckbuildercards_042.png
+Crispin	|Thief|	Convert as many Treasure as you want into action points.	| 	|deckbuildercards_043.png
+Grace	|Thief|	Gain 1 treasure for each exhausted card.	| 	|deckbuildercards_044.png
+Clementine	|Thief|	Gain 2 treasures for each card the opponent has more than you in their hand.	| 	|deckbuildercards_045.png
+Alitza	|Thief|	Whenever you spend 1 action point this turn, move this card 1 position.	| 	|deckbuildercards_046.png
+White King	|Spy|	Enemy cards cannot move on the opponent’s turn.	| 	|deckbuildercards_047.png
+Naptali	|Spy|	Enemy cards cannot flip face-up on the opponent's turn.	| 	|deckbuildercards_048.png
+Bumi	|Spy|	Destroy the treasure position below this card (flip the Treasure card). Destroyed positions cannot be used to steal.	| Lurker	|deckbuildercards_049.png
+Dona Aranha	|Spy|	Enemy cards cannot return to the opponent's hand.	| 	|deckbuildercards_050.png
+Trevor	|Spy|	Flip all face-up cards face-down and flip all face-down cards face-up.	| 	|deckbuildercards_051.png
+Ventus	|Spy|	Move all enemy cards 1 position backward if that position is empty.	| Flying	|deckbuildercards_052.png
+Mr. Ivanov	|Spy|	Double your action points after triggering this power.	| 	|deckbuildercards_053.png
+Tormenta	|Spy|	Flip all enemy cards face-up.	| Flying	|deckbuildercards_054.png
+Nevoir	|Spy|	Flip all your cards face-down.	| 	|deckbuildercards_055.png
+Cannon	|Spy|	Play 1 card from your hand face-up in the Treasure Zone position in the same column as this card, if that position is empty.	| Strongman	|deckbuildercards_056.png
+Cinder	|Spy|	Kill all face-up cards.	| Regenerative	|deckbuildercards_057.png
+Juju	|Spy|	Neither player’s Treasure can be altered during the opponent's turn.	| 	|deckbuildercards_058.png
+Eldritch	|Spy|	Return up to 4 cards adjacent to this one to their owner’s hand.	| 	|deckbuildercards_059.png
+Dalia	|Spy|	The opponent must draw 2 cards now.	| 	|deckbuildercards_060.png
+Kraemer	|Spy|	Halve the opponent's Treasure, round it up.	| Slayer	|deckbuildercards_061.png
+Glacáin	|Spy|	Declare 1 class. If the opponent draws a card with that class, they lose 2 action points. They can discard it to lose only 1 action point.	| Regenerative	|deckbuildercards_062.png
+Hodur	|Spy|	Move 1 enemy card to any empty position in your Zone 1.	| Slayer	|deckbuildercards_063.png
+Ekate	|Spy|	The opponent will not draw a card in their next Draw Phase.	| 	|deckbuildercards_064.png
+Taika	|Spy|	If you cannot draw a card, you are the winner.	| Invulnerable	|deckbuildercards_065.png
+Wivern	|Spy|	No card can move to adjacent positions to this card on the opponent's turn.	| 	|deckbuildercards_066.png
+Trogg	|Spy|	Move 1 card in an adjacent or diagonal position to this card to another adjacent or diagonal position, if that position is empty.	| 	|deckbuildercards_067.png
+Malac	|Spy|	Whenever one of your cards is blocked, gain 1 action point.	| 	|deckbuildercards_068.png
+Gévaudan	|Spy|	Enemy cards cannot be readied on the opponent's turn.	| Lurker	|deckbuildercards_069.png
+Pazu	|Spy|	This card and another card of your choice cannot be flipped face-up or face-down during this turn.	| Flying	|deckbuildercards_070.png
+Al Haddin	|Spy|	Look through all cards in your Deck and place 3 cards on the top of it in any order.	| 	|deckbuildercards_071.png
+Octavius	|Spy|	Whenever an enemy card flips face-up on the opponent's turn, exhaust it.	| Invulnerable	|deckbuildercards_072.png
+Caelia	|Spy|	Swap positions with another of your cards and flip both face down.	| Lurker	|deckbuildercards_073.png
+Pirulita	|Spy|	Mimic the power of the last card that died (choose in case of a tie).	| 	|deckbuildercards_074.png
+Merrick	|Spy|	When this card dies, ready 1 card.	| Regenerative	|deckbuildercards_075.png
+Dr. Klonn	|Spy|	Place 1 card from your Graveyard face-up in an empty position in your Zone 1.	| 	|deckbuildercards_076.png
+Lazarus	|Maniac|	Create 1 "Zombie".	| 	|deckbuildercards_077.png
+Marvaud	|Maniac|	Create 1 "Shark".	| 	|deckbuildercards_078.png
+Russula	|Maniac|	Create 1 "Illusion".	| 	|deckbuildercards_079.png
+Filthy Beard	|Maniac|	Create 1 "Pirate".	| 	|deckbuildercards_080.png
+Hadini	|Maniac|	Create 1 "Frog".	| 	|deckbuildercards_081.png
+Grotheus	|Maniac|	Create 1 "Demon".	| Invulnerable	|deckbuildercards_082.png
+Hameline	|Maniac|	Create 1 "Crow" in every empty position in the Treasure Zone.	| 	|deckbuildercards_083.png
+Akhrunos	|Maniac|	Create 1 "Predators".	| Invulnerable	|deckbuildercards_084.png
+Gretel	|Maniac|	Create 1 "Rat" or 1 "Bear". Banish this card and place the Henchman in its position.	| 	|deckbuildercards_085.png
+Kthul'haazgar	|Maniac|	Create 1 "Madness". You can only create up to 1 "Madness" per turn.	| Invulnerable	|deckbuildercards_086.png
+Pompeu	|Maniac|	Create 1 "Boulder".	| Strongman	|deckbuildercards_087.png
+Guilhotine	|Maniac|	Create 1 "Headless Guard".	| 	|deckbuildercards_088.png
+Daisy and Violet	|Maniac|	Create 2 "Eerie Song". You can only create up to 2 "Eerie Song" per turn.	| 	|deckbuildercards_089.png
+Euryale	|Maniac|	Whenever an enemy card flips face-up on the opponent's turn, create 1 "Statue".	| 	|deckbuildercards_090.png
+Narlagoth	|Maniac|	Create 1 "Maiden" for each card in the opponent's hand.	| 	|deckbuildercards_091.png
+Clyde	|Maniac|	Create 1 Henchman with an animal name and play it face-down. It loses its effect but gains the Spy Ability. Discard it after flipping it.	| 	|deckbuildercards_092.png
+Lepre	|Maniac|	Create 1 "Plague".	| 	|deckbuildercards_093.png
+Mabel	|Maniac|	Create 2 "Sheep".	| 	|deckbuildercards_094.png
+Endora	|Maniac|	Create 1 "Pumpkin".	| 	|deckbuildercards_095.png
+César	|Maniac|	Create 3 "Map Parts" and place them at the bottom of your Deck. There can't be more than 3 "Map Parts" in play.	| 	|deckbuildercards_096.png
+Pirate	|Henchman|	This card has the Thief Ability.	| 	|deckbuildercards_097.png
+Shark	|Henchman|	This card has the Assassin Ability.	| 	|deckbuildercards_098.png
+Zombie	|Henchman|	Kill 1 enemy card in the same zone where you played this card. If a card dies by this effect, create 1 "Zombie".	| 	|deckbuildercards_099.png
+Illusion	|Henchman|	Place this card in your hand. You may discard it to prevent an enemy card's attack (the opponent loses that action point).	| Curse	|deckbuildercards_100.png
+Demon	|Henchman|	Place this card on top of your Deck. Gain 2 action points when you draw it, then discard it.	| Curse	|deckbuildercards_101.png
+Headless Guard	|Henchman|	The opponent must attack this card whenever possible.	| 	|deckbuildercards_102.png
+Madness	|Henchman|	Place this card in the opponent's hand. If there are 3 "Madness" in their hand, you are the winner.	| Curse	|deckbuildercards_103.png
+Crow	|Henchman|	This card has "Flying" type.	| Flying	|deckbuildercards_104.png
+Frog	|Henchman|	Banish 1 enemy card in any position and play this card in the banished card's position.	| 	|deckbuildercards_105.png
+Boulder	|Henchman|	This card has "Obstacle" type.	| Obstacle	|deckbuildercards_106.png
+Statue	|Henchman|	Banish 1 enemy card that flipped face up and play this card in the banished card's position.	| 	|deckbuildercards_107.png
+Eerie Song	|Henchman|	Place this card in the opponent's hand. They lose 1 action point for each pair of "Eerie Song" in their hand.	| Curse	|deckbuildercards_108.png
+Rat	|Henchman|	The opponent loses 1 treasure in their Planning Phase if this card is in the Treasure Zone.	| 	|deckbuildercards_109.png
+Bear	|Henchman|	Kill 1 enemy card in an adjacent position to this card during the opponent's Planning Phase.	| 	|deckbuildercards_110.png
+Maiden	|Henchman|	The first player to kill 7 "Maiden" is the winner.	| 	|deckbuildercards_111.png
+Plague	|Henchman|	Place this card in the opponent's hand. While holding this card, they must discard 1 card from the top of their Deck at their End Phase.	| Curse	|deckbuildercards_112.png
+Sheep	|Henchman|	Play this card in an empty position in the opponent's Zone 1.	| 	|deckbuildercards_113.png
+Pumpkin	|Henchman|	At any time during your turn, discard this card and create 1 "Borobo" in its position.	| 	|deckbuildercards_114.png
+Borobo	|Henchman|	Return 1 enemy card in any position to the opponent's hand, including face-down cards.	| 	|deckbuildercards_115.png
+Map Parts	|Henchman|	If there are 3 'Map Parts' in your hand, gain 5 treasures and discard them.	| Curse	|deckbuildercards_116.png
+Predators	|Henchman|	Place this card on top of the opponent's Deck. If they have an Assassin in their hand, discard this card. Otherwise, shuffle it back into their Deck.	| Curse	|deckbuildercards_117.png`;
+
+            // Agora você tem o conteúdo do arquivo de texto (content).
+            // Analise o conteúdo e preencha as informações das cartas e as imagens.
+            processTextData(content);
+        }
+
+        // Função para ordenar as cartas alfabeticamente
+        function sortAlphabetically() {
+            cards.sort((cardA, cardB) => {
+                const nameA = cardA.getAttribute('data-name');
+                const nameB = cardB.getAttribute('data-name');
+                return nameA.localeCompare(nameB);
+            });
+
+            updateCardDisplay();
+        }
+
+        // Função para ordenar as cartas por classe
+        function sortCardsByClass() {
+            cards.sort((cardA, cardB) => {
+                const cclassA = cardA.getAttribute('data-cclass');
+                const cclassB = cardB.getAttribute('data-cclass');
+                return cclassA.localeCompare(cclassB);
+            });
+
+            updateCardDisplay();
+        }
+
+        // Função para ordenar as cartas por tipo
+        function sortCardsByType() {
+            cards.sort((cardA, cardB) => {
+                const typeA = cardA.getAttribute('data-type');
+                const typeB = cardB.getAttribute('data-type');
+                return typeA.localeCompare(typeB);
+            });
+
+            updateCardDisplay();
+        }
+
+        // Função para atualizar a exibição das cartas no cardContainer
+        function updateCardDisplay() {
+            cardContainer.innerHTML = '';
+            for (const card of cards) {
+                cardContainer.appendChild(card);
+            }
+        }
+
+        // Função para processar os dados do arquivo de texto
+        function processTextData(content) {
+            const cardData = content.split('\n');
+
+            for (const cardLine of cardData) {
+                const [name, cclass, description, type, imageSrc] = cardLine.split('|');
+
+                const card = document.createElement('img');
+                card.className = 'card';
+                card.src = imageSrc;
+                card.setAttribute('data-name', name);
+                card.setAttribute('data-cclass', cclass);
+                card.setAttribute('data-description', description);
+                card.setAttribute('data-type', type);
+                card.setAttribute('data-image', imageSrc);
+
+                // Adicione um evento de clique para mostrar os detalhes da carta
+                card.addEventListener('click', () => showCardOverlay(card));
+
+                cards.push(card);
+                cardContainer.appendChild(card);
+            }
+        }
+    </script>
+    <h3>Types</h3>
+    <p>
+<strong>Curse</strong><br>
+You cannot play this card.<br>
+<strong>Evasive</strong><br>
+You may flip this card face-down.<br>
+<strong>Flying</strong><br>
+You may return this card to your hand.<br>
+<strong>Invulnerable</strong><br>
+Only "Slayer" type cards can attack or kill this card using their power.<br>
+<strong>Lurker</strong><br>
+When this card uses the Spy Ability it kills the card it blocked.<br>
+<strong>Obstacle</strong><br>
+Only "Strongman" type cards can attack or kill this card using their power.<br>
+<strong>Regenerative</strong><br>
+You may return this card to your hand when it dies.<br>
+<strong>Slayer</strong><br>
+This card can attack or kill "Invulnerable" type cards using its power.<br>
+<strong>Stalker</strong><br>
+This card can move into the opponent's zones.<br>
+<strong>Strongman</strong><br>
+This card can attack or kill "Obstacle" type cards using its power.<br>
+    </p>
+    <h3>Power Speed</h3>
+    <p>
+<strong>Quick</strong><br>
+This happens when you trigger it on your turn and it's over.<br>
+<strong>Slow</strong><br>
+This will happen on the opponent's next turn, in any phase, whenever the condition is met. When they pass their turn, it's over.<br>
+<strong>Ongoing</strong><br>
+After triggering it in your turn, this will happen whenever the condition is met, as long as the card remains face-up on the Playfield. The card is exhausted, cannot be ready and you don't need to spend more points.<br>
+    </p>
+    <p style="text-align:center"><br><br>Eruma TCG. Copyright © 2023-2025 Fabio Esteves. All rights reserved.</p>
+</body>
+</html>
