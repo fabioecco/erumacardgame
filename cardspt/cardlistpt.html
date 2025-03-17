@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eruma TCG Deckbuilding Tool</title>
+    <style>
+        /* Reset de estilos e ajustes gerais */
+        body, html {
+            margin: 0;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+        
+        /* Estilos para as áreas de cartas */
+        .card-container {
+            width: 100%;
+            height: 100%;
+            float: left;
+            border: 2px dashed #000;
+        }
+
+        .deck {
+            width: 100%;
+            height: 300px;
+            float: left;
+            border: 2px dashed #000;
+            background-color: #ABEABA;
+        }
+
+        .card {
+            display: inline-block;
+            width: auto;
+            height: 150px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        /* Estilos para a sobreposição */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro transparente */
+            z-index: 1;
+        }
+
+        .card-details {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            text-align: center;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        /* Aumentar o tamanho da imagem em 50% */
+        #expandedCard {
+            width: 50%;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px auto;
+        }
+
+    </style>
+    <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
+    <script>
+    window.onload = function() {
+        loadTextFile();
+    };</script>
+</head>
+<body>
+    <!--<h1>Eruma TCG Card Database</h1>-->
+    <img src="logodeckbuilding.png" alt="logo" style="width:200px;">
+    <p>
+        <a href="https://github.com/fabioecco/erumatcg/cardspt/cardlistpt.html"><i class="em em-flag-um" aria-role="presentation" aria-label="U.S. Outlying Islands Flag"></i></a>&nbsp;
+        <a href="https://github.com/fabioecco/erumatcg/cardsen/cardlisten.html"><i class="em em-flag-br" aria-role="presentation" aria-label="Brazil Flag"></i></a><br>
+        <strong>Organize ou filtre as cartas por palavras específicas em seu texto usando a caixa de pesquisa<br>Clique para ampliar as cartas.</strong>
+    </p>
+
+    <!-- Área à esquerda para cartas e controles -->
+    <div class="card-container" id="cardContainer"></div>
+
+    <!-- Área à direita para o deck -->
+    <div class="deck" id="rightArea"></div>    
+
+        <!-- Barra de pesquisa -->
+        <input type="text" id="searchInput" onkeyup="searchCards()" placeholder="Pesquisa de Cartas...">
+
+        <button onclick="sortAlphabetically()">Organizar por Nome</button>
+        <button onclick="sortCardsByClass()">Organizar por Classe</button>
+        <button onclick="sortCardsByType()">Organizar por Tipo</button>
+        
+        <div id="cardContainer" class="card-container"></div>
+    </div>
+
+    <!-- Sobreposição para exibir detalhes da carta -->
+    <div class="overlay" id="overlay">
+        <div class="card-details" id="cardDetails">
+            <img id="expandedCard" class="card" src="">
+            <div id="cardInfo"></div>
+            <button onclick="closeOverlay()">Close</button>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script>
+        const cardContainer = document.getElementById('cardContainer');
+        const rightArea = document.getElementById('rightArea');
+        const cards = [];
+
+        // Torna ambas as áreas classificáveis
+        $(".card-container, #rightArea").sortable({
+            connectWith: ".card-container, #rightArea", // Conectar ambas as áreas
+            helper: "clone",
+        });
+
+        // Função para exibir a sobreposição com detalhes da carta
+        function showCardOverlay(card) {
+            const name = card.getAttribute('data-name');
+            const cclass = card.getAttribute('data-cclass');
+            const description = card.getAttribute('data-description');
+            const type = card.getAttribute('data-type');
+            const imageSrc = card.getAttribute('data-image');
+
+            const expandedCard = document.getElementById('expandedCard');
+            expandedCard.src = imageSrc;
+
+            const cardInfo = document.getElementById('cardInfo');
+            cardInfo.innerHTML = `Nome: ${name}<br>Classe: ${cclass}<br>Tipo: ${type}<br>Poder: ${description}`;
+
+            const overlay = document.getElementById('overlay');
+            overlay.style.display = 'block';
+        }
+
+        // Função para fechar a sobreposição
+        function closeOverlay() {
+            const overlay = document.getElementById('overlay');
+            overlay.style.display = 'none';
+        }
+
+        // Função para filtrar cartas com base na pesquisa
+        function searchCards() {
+            const searchInput = document.getElementById('searchInput');
+            const filter = searchInput.value.toLowerCase();
+
+            cards.forEach((card) => {
+                const searchName = card.getAttribute('data-name').toLowerCase();
+                const searchText = card.getAttribute('data-description').toLowerCase();
+                const searchType = card.getAttribute('data-type').toLowerCase();
+                const displayStyle = searchName.includes(filter) || searchText.includes(filter) || searchType.includes(filter) ? 'inline-block' : 'none';
+                card.style.display = displayStyle;
+            });
+        }
+
+        // Função para carregar o arquivo de texto
+        function loadTextFile() {
+            const content = `Charlotte	|Assassino|	Mate 1 carta em qualquer posição.	| 	|deckbuildercards_001.png
+Makuna	|Assassino|	Mate 2 Capangas em qualquer posição.	| 	|deckbuildercards_002.png
+Shimaru	|Assassino|	Mate todas as cartas inimigas que virarem pra cima neste turno.	| Evasiva	|deckbuildercards_003.png
+Picard e Boulle	|Assassino|	Mate 1 carta tipo "Invulnerável" em qualquer posição.	| Exterminador	|deckbuildercards_004.png
+Beetrice	|Assassino|	Mate todas as cartas inimigas que roubarem tesouros no turno do oponente.	| Voador	|deckbuildercards_005.png
+Toxique	|Assassino|	Mate todas as cartas inimigas que virarem pra cima no turno do oponente.	| 	|deckbuildercards_006.png
+Erzsebet	|Assassino|	Dê Habilidade de Assassino para uma de suas cartas até o fim deste turno.	| Invulnerável, Voador	|deckbuildercards_007.png
+Rhowl	|Assassino|	Vire todas as cartas inimigas pra baixo.	| Invulnerável	|deckbuildercards_008.png
+Tintin	|Assassino|	Escolha um Tipo para esta carta.	| 	|deckbuildercards_009.png
+Grimas	|Assassino|	Use um poder Rápido ou Lento de uma carta no Cemitério de qualquer jogador.	| 	|deckbuildercards_010.png
+Wicker	|Assassino|	Mate todas as cartas inimigas que não se moverem até o fim do turno do oponente.	| Exterminador	|deckbuildercards_011.png
+Machado	|Assassino|	Mate todas as cartas inimigas em posições adjacentes à esta carta.	| 	|deckbuildercards_012.png
+Muerte	|Assassino|	Compre até 3 cartas do seu Cemitério.	| 	|deckbuildercards_013.png
+Sandiego	|Assassino|	Ganhe 2 tesouros cada vez que esta carta matar outra carta neste turno.	| 	|deckbuildercards_014.png
+Kuroshi	|Assassino|	Ganhe 2 tesouros cada vez que seus Assassinos matarem cartas.	| Evasiva	|deckbuildercards_015.png
+Peekaboo	|Assassino|	Mova esta carta até 3 posições neste turno.	| 	|deckbuildercards_016.png
+Karl e Sylv	|Assassino|	Mate 1 carta em qualquer posição e mova esta carta para a posição da carta morta.	| Voador	|deckbuildercards_017.png
+Gallagher	|Assassino|	Mova esta carta 1 posição cada vez que o oponente gastar 1 ponto de ação, inclusive para as zonas dele.	| 	|deckbuildercards_018.png
+Araun	|Assassino|	Mate todas as cartas inimigas exaustas.	| 	|deckbuildercards_019.png
+Anaiti	|Assassino|	Compre 2 cartas e descarte 1 delas.	| Evasiva	|deckbuildercards_020.png
+Zoltan	|Assassino|	Mate 1 carta em qualquer posição, mas vire-a pra baixo ao invés de colocá-la no cemitério ou na mão.	| Exterminador	|deckbuildercards_021.png
+Miara	|Ladrão|	O oponente perde 1 ponto de ação no próximo turno dele.	| 	|deckbuildercards_022.png
+Dejavu	|Ladrão|	Repita o último poder ativado.	| 	|deckbuildercards_023.png
+Cerebro	|Ladrão|	Use seus pontos de ação para controlar 1 carta inimiga.	| 	|deckbuildercards_024.png
+Limbo	|Ladrão|	Coloque 1 Capanga da sua mão na mão do oponente.	| 	|deckbuildercards_025.png
+Alma	|Ladrão|	Mova esta carta para qualquer posição vazia, exceto nas zonas do oponente.	| Invulnerável	|deckbuildercards_026.png
+Oberon	|Ladrão|	Esta carta não pode ser movida ou banida.	| Obstáculo, Voador	|deckbuildercards_027.png
+Replica	|Ladrão|	Transforme esta carta em uma cópia de outra carta virada pra cima. Não destransforma ao ser preparada.	| 	|deckbuildercards_028.png
+Sumida	|Ladrão|	Troque de posição com outra carta adjacente à esta.	| Evasiva	|deckbuildercards_029.png
+Enforcado	|Ladrão|	Para cada carta que você retornar pra sua mão, escolha 1 carta inimiga para retornar pra mão do oponente.	| Voador	|deckbuildercards_030.png
+Didi e Dimbo	|Ladrão|	Quando esta carta morrer você ganha 3 tesouros.	| 	|deckbuildercards_031.png
+Magnete	|Ladrão|	Escolha 1 carta inimiga e fique com os tesouros que ela roubar.	| 	|deckbuildercards_032.png
+Lavenza	|Ladrão|	Coloque 1 Espião do seu Deck na sua mão e embaralhe esta carta no seu Deck.	| Regenerativa	|deckbuildercards_033.png
+Barril	|Ladrão|	Roube 3 tesouros se esta carta estiver na Zona do Tesouro.	| Fortão	|deckbuildercards_034.png
+Flamel	|Ladrão|	Dobre o seu Tesouro.	| 	|deckbuildercards_035.png
+Renart	|Ladrão|	Ganhe 1 tesouro para cada carta Tipo "Voador" que retornar pra sua mão.	| 	|deckbuildercards_036.png
+Sayyida	|Ladrão|	Cada vez que esta carta roubar tesouros, mate 1 carta na mesma coluna que esta.	| 	|deckbuildercards_037.png
+Otylia	|Ladrão|	Ganhe 2 tesouros cada vez que um jogador descartar 1 carta.	| 	|deckbuildercards_038.png
+Baba	|Ladrão|	Ganhe 1 ponto de ação para cada carta sua exausta.	| Regenerativa	|deckbuildercards_039.png
+Ganzu	|Ladrão|	Ganhe 2 tesouros para cada carta que você comprar neste turno.	| 	|deckbuildercards_040.png
+Rox	|Ladrão|	Ganhe 1 tesouro para cada carta inimiga que virar pra cima no turno do oponente.	| 	|deckbuildercards_041.png
+Genevieve	|Ladrão|	Retorne 1 "Sapo" para o Deck Extra do dono e jogue 1 carta virada pra cima na posição daquele "Sapo".	| 	|deckbuildercards_042.png
+Crispin	|Ladrão|	Converta seus tesouros em pontos de ação na quantidade que desejar.	| 	|deckbuildercards_043.png
+Grace	|Ladrão|	Ganhe 1 tesouro para cada carta exausta.	| 	|deckbuildercards_044.png
+Clementine	|Ladrão|	Ganhe 2 tesouros pra cada carta que o oponente tem a mais que você na mão.	| 	|deckbuildercards_045.png
+Alitza	|Ladrão|	Mova esta carta 1 posição cada vez que você gastar 1 ponto de ação.	| 	|deckbuildercards_046.png
+Rei Branco	|Espião|	Cartas inimigas não podem se mover no turno do oponente.	| 	|deckbuildercards_047.png
+Naptali	|Espião|	Cartas inimigas não podem virar pra cima no turno do oponente.	| 	|deckbuildercards_048.png
+Bumi	|Espião|	Destrua a posição do tesouro abaixo desta carta (vire a carta de tesouro). Posições destruídas não podem ser usadas para roubar.	| Sorrateira	|deckbuildercards_049.png
+Dona Aranha	|Espião|	Cartas inimigas não podem retornar pra mão do oponente.	| 	|deckbuildercards_050.png
+Trevor	|Espião|	Vire pra baixo todas as cartas viradas pra cima e vire pra cima todas as cartas viradas pra baixo.	| 	|deckbuildercards_051.png
+Ventus	|Espião|	Mova todas as cartas inimigas 1 posição para trás se a posição estiver vazia.	| Voador	|deckbuildercards_052.png
+Sr. Ivanov	|Espião|	Dobre os seus pontos de ação, após ativar esse poder.	| 	|deckbuildercards_053.png
+Tormenta	|Espião|	Vire todas as cartas inimigas pra cima.	| Voador	|deckbuildercards_054.png
+Nevoir	|Espião|	Vire todas as suas cartas pra baixo.	| 	|deckbuildercards_055.png
+Cannon	|Espião|	Jogue 1 carta da sua mão, virada pra cima, na posição da Zona do Tesouro na mesma coluna desta carta, se estiver vazia.	| Fortão	|deckbuildercards_056.png
+Cinder	|Espião|	Mate todas as cartas viradas pra cima.	| Regenerativa	|deckbuildercards_057.png
+Juju	|Espião|	O Tesouro de ambos os jogadores não pode ser alterado no turno do oponente.	| 	|deckbuildercards_058.png
+Eldritch	|Espião|	Retorne até 4 cartas adjacentes à esta pra mão dos donos.	| 	|deckbuildercards_059.png
+Dalia	|Espião|	O oponente deve comprar 2 cartas agora.	| 	|deckbuildercards_060.png
+Kraemer	|Espião|	Reduza o Tesouro do oponente pela metade, arredonde pra cima.	| Exterminador	|deckbuildercards_061.png
+Glacáin	|Espião|	Declare 1 classe. Se o oponente comprar uma carta com esta classe, perde 2 pontos de ação. Ele pode descartá-la para perder apenas 1 ponto de ação.	| Regenerativa	|deckbuildercards_062.png
+Hodur	|Espião|	Mova 1 carta inimiga para qualquer posição vazia na sua Zona 1.	| Exterminador	|deckbuildercards_063.png
+Ekate	|Espião|	O oponente não comprará carta na próxima Fase de Compra dele.	| 	|deckbuildercards_064.png
+Taika	|Espião|	Se você não puder comprar carta, você é o vencedor.	| Invulnerável	|deckbuildercards_065.png
+Wivern	|Espião|	Nenhuma carta pode se mover para posições adjacentes à esta carta no turno do oponente.	| 	|deckbuildercards_066.png
+Trogg	|Espião|	Mova 1 carta em uma posição adjacente ou diagonal à esta para outra posição adjacente ou diagonal, se estiver vazia.	| 	|deckbuildercards_067.png
+Malac	|Espião|	Ganhe 1 ponto de ação cada vez que uma carta sua for bloqueada.	| 	|deckbuildercards_068.png
+Gévaudan	|Espião|	Cartas inimigas não podem ser preparadas no turno do oponente.	| Sorrateira	|deckbuildercards_069.png
+Pazu	|Espião|	Esta carta e outra carta à sua escolha não podem ser viradas pra cima ou pra baixo neste turno.	| Voador	|deckbuildercards_070.png
+Al Haddin	|Espião|	Olhe o seu Deck e coloque 3 cartas no topo na ordem que desejar.	| 	|deckbuildercards_071.png
+Octavius	|Espião|	Exauste todas as cartas inimigas que virarem pra cima no turno do oponente.	| Invulnerável	|deckbuildercards_072.png
+Caelia	|Espião|	Troque de posição com outra carta sua e vire ambas pra baixo.	| Sorrateira	|deckbuildercards_073.png
+Pirulita	|Espião|	Imite o poder da última carta que morreu (escolha em caso de empate).	| 	|deckbuildercards_074.png
+Merrick	|Espião|	Quando esta carta morrer, prepare 1 carta.	| Regenerativa	|deckbuildercards_075.png
+Dr. Klonn	|Espião|	Coloque 1 carta do seu Cemitério, virada pra cima, em uma posição vazia da sua Zona 1.	| 	|deckbuildercards_076.png
+Lazarus	|Maníaco|	Crie 1 "Zumbi".	| 	|deckbuildercards_077.png
+Marvaud	|Maníaco|	Crie 1 "Tubarão".	| 	|deckbuildercards_078.png
+Russula	|Maníaco|	Crie 1 "Ilusão".	| 	|deckbuildercards_079.png
+Barba Suja	|Maníaco|	Crie 1 "Pirata".	| 	|deckbuildercards_080.png
+Hadini	|Maníaco|	Crie 1 "Sapo".	| 	|deckbuildercards_081.png
+Grotheus	|Maníaco|	Crie 1 "Demônio".	| Invulnerável	|deckbuildercards_082.png
+Hameline	|Maníaco|	Crie 1 "Corvo" em cada posição vazia da Zona do Tesouro.	| 	|deckbuildercards_083.png
+Akhrunos	|Maníaco|	Crie 1 "Predadores".	| Invulnerável	|deckbuildercards_084.png
+Gretel	|Maníaco|	Crie 1 "Rato" ou 1 "Urso". Bana esta carta e coloque o Capanga na posição que ela ocupava.	| 	|deckbuildercards_085.png
+Kthul'haazgar	|Maníaco|	Crie 1 "Loucura". Você só pode criar 1 "Loucura" por turno.	| Invulnerável	|deckbuildercards_086.png
+Pompeu	|Maníaco|	Crie 1 "Pedregulho".	| Fortão	|deckbuildercards_087.png
+Guilhotine	|Maníaco|	Crie 1 "Guarda-Sem-Cabeça".	| 	|deckbuildercards_088.png
+Daisy e Violet	|Maníaco|	Crie 2 "Canção Sinistra". Você só pode criar 2 "Canção Sinistra" por turno.	| 	|deckbuildercards_089.png
+Euryale	|Maníaco|	Crie 1 "Estátua" para cada carta inimiga que virar pra cima no turno do oponente.	| 	|deckbuildercards_090.png
+Narlagoth	|Maníaco|	Crie 1 "Donzela" para cada carta na mão do oponente.	| 	|deckbuildercards_091.png
+Clyde	|Maníaco|	Crie 1 Capanga com nome de animal e jogue-o virado pra baixo. Ele perde o efeito, mas ganha Habilidade de Espião. Descarte-o após virá-lo.	| 	|deckbuildercards_092.png
+Lepre	|Maníaco|	Crie 1 "Praga".	| 	|deckbuildercards_093.png
+Mabel	|Maníaco|	Crie 2 "Ovelha".	| 	|deckbuildercards_094.png
+Endora	|Maníaco|	Crie 1 "Abóbora".	| 	|deckbuildercards_095.png
+César	|Maníaco|	Crie 3 "Partes do Mapa" e coloque-as no fundo do seu Deck. Não pode haver mais de 3 "Partes do Mapa" em jogo.	| 	|deckbuildercards_096.png
+Pirata	|Capanga|	Esta carta tem a Habilidade do Ladrão.	| 	|deckbuildercards_097.png
+Tubarão	|Capanga|	Esta carta tem a Habilidade do Assassino.	| 	|deckbuildercards_098.png
+Zumbi	|Capanga|	Mate 1 carta inimiga na mesma zona em que você jogou esta carta. Se uma carta morrer por este efeito, crie 1 "Zumbi".	| 	|deckbuildercards_099.png
+Ilusão	|Capanga|	Coloque esta carta na sua mão. Você pode descartá-la pra impedir o ataque de 1 carta inimiga (o oponente perde o ponto de ação).	| Maldição	|deckbuildercards_100.png
+Demônio	|Capanga|	Coloque esta carta no topo do seu Deck. Ganhe 2 pontos de ação ao comprá-la e descarte-a.	| Maldição	|deckbuildercards_101.png
+Guarda-Sem-Cabeça	|Capanga|	O oponente deve atacar esta carta sempre que puder.	| 	|deckbuildercards_102.png
+Loucura	|Capanga|	Coloque esta carta na mão do oponente. Se houver 3 "Loucura" na mão dele, você vence o jogo.	| Maldição	|deckbuildercards_103.png
+Corvo	|Capanga|	Esta carta é tipo "Voador".	| Voador	|deckbuildercards_104.png
+Sapo	|Capanga|	Bana 1 carta inimiga em qualquer posição e jogue esta carta na posição da carta banida.	| 	|deckbuildercards_105.png
+Pedregulho	|Capanga|	Esta carta é tipo "Obstáculo".	| Obstáculo	|deckbuildercards_106.png
+Estátua	|Capanga|	Bana 1 carta inimiga que virou pra cima e jogue esta carta na posição da carta banida.	| 	|deckbuildercards_107.png
+Canção Sinistra	|Capanga|	Coloque esta carta na mão do oponente. Ele perde 1 ponto de ação para cada par de "Canção Sinistra" na mão.	| Maldição	|deckbuildercards_108.png
+Rato	|Capanga|	O oponente perde 1 tesouro na Fase de preparação dele se esta carta estiver na Zona do Tesouro.	| 	|deckbuildercards_109.png
+Urso	|Capanga|	Mate 1 carta inimiga em uma posição adjacente à esta carta durante a Fase de Preparação do oponente.	| 	|deckbuildercards_110.png
+Donzela	|Capanga|	O jogador que matar 7 "Donzela" é o vencedor.	| 	|deckbuildercards_111.png
+Praga	|Capanga|	Coloque esta carta na mão do oponente. Enquanto segurar esta carta, ele deve descartar 1 carta do topo do Deck dele no fim do turno.	| Maldição	|deckbuildercards_112.png
+Ovelha	|Capanga|	Jogue esta carta em uma posição vazia da Zona 1 do oponente.	| 	|deckbuildercards_113.png
+Abóbora	|Capanga|	Quando quiser, durante o seu turno, descarte esta carta e crie 1 "Borobo" na mesma posição.	| 	|deckbuildercards_114.png
+Borobo	|Capanga|	Retorne 1 carta inimiga em qualquer posição pra mão do oponente, incluindo as viradas pra baixo.	| 	|deckbuildercards_115.png
+Partes do Mapa	|Capanga|	Se houver 3 "Partes do Mapa" na sua mão, ganhe 5 tesouros e descarte-as.	| Maldição	|deckbuildercards_116.png
+Predadores	|Capanga|	Coloque esta carta no topo do Deck do oponente. Se o jogador que comprá-la tiver um Assassino na mão, descarte-a. Senão, reembaralhe-a no Deck.	| Maldição	|deckbuildercards_117.png`;
+
+            // Agora você tem o conteúdo do arquivo de texto (content).
+            // Analise o conteúdo e preencha as informações das cartas e as imagens.
+            processTextData(content);
+        }
+
+        // Função para ordenar as cartas alfabeticamente
+        function sortAlphabetically() {
+            cards.sort((cardA, cardB) => {
+                const nameA = cardA.getAttribute('data-name');
+                const nameB = cardB.getAttribute('data-name');
+                return nameA.localeCompare(nameB);
+            });
+
+            updateCardDisplay();
+        }
+
+        // Função para ordenar as cartas por classe
+        function sortCardsByClass() {
+            cards.sort((cardA, cardB) => {
+                const cclassA = cardA.getAttribute('data-cclass');
+                const cclassB = cardB.getAttribute('data-cclass');
+                return cclassA.localeCompare(cclassB);
+            });
+
+            updateCardDisplay();
+        }
+
+        // Função para ordenar as cartas por tipo
+        function sortCardsByType() {
+            cards.sort((cardA, cardB) => {
+                const typeA = cardA.getAttribute('data-type');
+                const typeB = cardB.getAttribute('data-type');
+                return typeA.localeCompare(typeB);
+            });
+
+            updateCardDisplay();
+        }
+
+        // Função para atualizar a exibição das cartas no cardContainer
+        function updateCardDisplay() {
+            cardContainer.innerHTML = '';
+            for (const card of cards) {
+                cardContainer.appendChild(card);
+            }
+        }
+
+        // Função para processar os dados do arquivo de texto
+        function processTextData(content) {
+            const cardData = content.split('\n');
+
+            for (const cardLine of cardData) {
+                const [name, cclass, description, type, imageSrc] = cardLine.split('|');
+
+                const card = document.createElement('img');
+                card.className = 'card';
+                card.src = imageSrc;
+                card.setAttribute('data-name', name);
+                card.setAttribute('data-cclass', cclass);
+                card.setAttribute('data-description', description);
+                card.setAttribute('data-type', type);
+                card.setAttribute('data-image', imageSrc);
+
+                // Adicione um evento de clique para mostrar os detalhes da carta
+                card.addEventListener('click', () => showCardOverlay(card));
+
+                cards.push(card);
+                cardContainer.appendChild(card);
+            }
+        }
+    </script>
+    <h3>Tipos</h3>
+    <p>
+<strong>Evasiva</strong><br>
+Você pode virar essa carta para baixo durante o seu turno.<br>
+<strong>Exterminador</strong><br>
+Esta carta pode atacar cartas “Invulnerável” ou matá-las usando poderes.<br>
+<strong>Fortão</strong><br>
+Esta carta pode atacar cartas tipo “Obstáculo” ou matá-las usando poderes.<br>
+<strong>Invulnerável</strong><br>
+Apenas cartas “Exterminador” podem atacar ou matar esta carta usando poderes.<br>
+<strong>Maldição</strong><br>
+Esta carta não pode ser jogada no Campo.<br>
+<strong>Obstáculo</strong><br>
+Apenas cartas “Fortão” podem atacar ou matar esta carta usando poderes.<br>
+<strong>Perseguidor</strong><br>
+Esta carta pode se mover para as zonas do oponente.<br>
+<strong>Regenerativa</strong><br>
+Quando esta carta morrer, retorne-a para sua mão.<br>
+<strong>Sorrateira</strong><br>
+Ao usar a Habilidade de Espião desta carta, mate a carta bloqueada.<br>
+<strong>Voador</strong><br>
+Você pode retornar esta carta para sua mão durante o seu turno.<br>
+    </p>
+    <h3>Velocidade do Poder</h3>
+    <p>
+<strong>Rápida</strong><br>
+O efeito acontece no momento em que você o ativa e está terminado.<br>
+<strong>Lenta</strong><br>
+O efeito acontece no próximo turno do oponente, em qualquer fase, sempre que a condição for atendida. Quando o oponente passar a vez, o efeito termina.<br>
+<strong>Contínua</strong><br>
+Após ativar o poder, ele fará efeito sempre que a condição for atendida, no turno de ambos os jogadores, enquanto a carta permanecer virada para cima e exausta. Essa carta não ficará pronta na Fase de Preparação.<br>
+    </p>
+    <p style="text-align:center"><br><br>Eruma TCG. Copyright © 2023-2025 Fabio Esteves. All rights reserved.</p>
+</body>
+</html>
