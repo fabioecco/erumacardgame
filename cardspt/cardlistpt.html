@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Eruma TCG Deckbuilding Tool</title>
+    <title>Eruma TCG Deckbuilder</title>
     <style>
         /* Reset de estilos e ajustes gerais */
         body, html {
@@ -188,13 +188,13 @@ Dejavu	|Ladrão|	Repita o último poder ativado.	| 	|deckbuildercards_023.png
 Cerebro	|Ladrão|	Use seus pontos de ação para controlar 1 carta inimiga.	| 	|deckbuildercards_024.png
 Limbo	|Ladrão|	Coloque 1 Capanga da sua mão na mão do oponente.	| 	|deckbuildercards_025.png
 Alma	|Ladrão|	Mova esta carta para qualquer posição vazia, exceto nas zonas do oponente.	| Invulnerável	|deckbuildercards_026.png
-Oberon	|Ladrão|	Esta carta não pode ser movida ou banida.	| Obstáculo, Voador	|deckbuildercards_027.png
+Oberon	|Ladrão|	Esta carta ganha tipo "Obstáculo" e não pode ser banida.	| Voador	|deckbuildercards_027.png
 Replica	|Ladrão|	Transforme esta carta em uma cópia de outra carta virada pra cima. Não destransforma ao ser preparada.	| 	|deckbuildercards_028.png
 Sumida	|Ladrão|	Troque de posição com outra carta adjacente à esta.	| Evasiva	|deckbuildercards_029.png
 Enforcado	|Ladrão|	Para cada carta que você retornar pra sua mão, escolha 1 carta inimiga para retornar pra mão do oponente.	| Voador	|deckbuildercards_030.png
 Didi e Dimbo	|Ladrão|	Quando esta carta morrer você ganha 3 tesouros.	| 	|deckbuildercards_031.png
 Magnete	|Ladrão|	Escolha 1 carta inimiga e fique com os tesouros que ela roubar.	| 	|deckbuildercards_032.png
-Lavenza	|Ladrão|	Coloque 1 Espião do seu Deck na sua mão e embaralhe esta carta no seu Deck.	| Regenerativa	|deckbuildercards_033.png
+Lavenza	|Ladrão|	Coloque 1 Espião do seu Baralho na sua mão e embaralhe esta carta no seu Baralho.	| Regenerativa	|deckbuildercards_033.png
 Barril	|Ladrão|	Roube 3 tesouros se esta carta estiver na Zona do Tesouro.	| Fortão	|deckbuildercards_034.png
 Flamel	|Ladrão|	Dobre o seu Tesouro.	| 	|deckbuildercards_035.png
 Renart	|Ladrão|	Ganhe 1 tesouro para cada carta Tipo "Voador" que retornar pra sua mão.	| 	|deckbuildercards_036.png
@@ -203,7 +203,7 @@ Otylia	|Ladrão|	Ganhe 2 tesouros cada vez que um jogador descartar 1 carta.	| 	
 Baba	|Ladrão|	Ganhe 1 ponto de ação para cada carta sua exausta.	| Regenerativa	|deckbuildercards_039.png
 Ganzu	|Ladrão|	Ganhe 2 tesouros para cada carta que você comprar neste turno.	| 	|deckbuildercards_040.png
 Rox	|Ladrão|	Ganhe 1 tesouro para cada carta inimiga que virar pra cima no turno do oponente.	| 	|deckbuildercards_041.png
-Genevieve	|Ladrão|	Retorne 1 "Sapo" para o Deck Extra do dono e jogue 1 carta virada pra cima na posição daquele "Sapo".	| 	|deckbuildercards_042.png
+Genevieve	|Ladrão|	Retorne 1 "Sapo" para o baralho Extra do dono e jogue 1 carta virada pra cima na posição daquele "Sapo".	| 	|deckbuildercards_042.png
 Crispin	|Ladrão|	Converta seus tesouros em pontos de ação na quantidade que desejar.	| 	|deckbuildercards_043.png
 Grace	|Ladrão|	Ganhe 1 tesouro para cada carta exausta.	| 	|deckbuildercards_044.png
 Clementine	|Ladrão|	Ganhe 2 tesouros pra cada carta que o oponente tem a mais que você na mão.	| 	|deckbuildercards_045.png
@@ -232,7 +232,7 @@ Trogg	|Espião|	Mova 1 carta em uma posição adjacente ou diagonal à esta para
 Malac	|Espião|	Ganhe 1 ponto de ação cada vez que uma carta sua for bloqueada.	| 	|deckbuildercards_068.png
 Gévaudan	|Espião|	Cartas inimigas não podem ser preparadas no turno do oponente.	| Sorrateira	|deckbuildercards_069.png
 Pazu	|Espião|	Esta carta e outra carta à sua escolha não podem ser viradas pra cima ou pra baixo neste turno.	| Voador	|deckbuildercards_070.png
-Al Haddin	|Espião|	Olhe o seu Deck e coloque 3 cartas no topo na ordem que desejar.	| 	|deckbuildercards_071.png
+Al Haddin	|Espião|	Olhe o seu Baralho e coloque 3 cartas no topo na ordem que desejar.	| 	|deckbuildercards_071.png
 Octavius	|Espião|	Exauste todas as cartas inimigas que virarem pra cima no turno do oponente.	| Invulnerável	|deckbuildercards_072.png
 Caelia	|Espião|	Troque de posição com outra carta sua e vire ambas pra baixo.	| Sorrateira	|deckbuildercards_073.png
 Pirulita	|Espião|	Imite o poder da última carta que morreu (escolha em caso de empate).	| 	|deckbuildercards_074.png
@@ -257,12 +257,12 @@ Clyde	|Maníaco|	Crie 1 Capanga com nome de animal e jogue-o virado pra baixo. E
 Lepre	|Maníaco|	Crie 1 "Praga".	| 	|deckbuildercards_093.png
 Mabel	|Maníaco|	Crie 2 "Ovelha".	| 	|deckbuildercards_094.png
 Endora	|Maníaco|	Crie 1 "Abóbora".	| 	|deckbuildercards_095.png
-César	|Maníaco|	Crie 3 "Partes do Mapa" e coloque-as no fundo do seu Deck. Não pode haver mais de 3 "Partes do Mapa" em jogo.	| 	|deckbuildercards_096.png
+César	|Maníaco|	Crie 3 "Partes do Mapa" e coloque-as no fundo do seu Baralho. Não pode haver mais de 3 "Partes do Mapa" em jogo.	| 	|deckbuildercards_096.png
 Pirata	|Capanga|	Esta carta tem a Habilidade do Ladrão.	| 	|deckbuildercards_097.png
 Tubarão	|Capanga|	Esta carta tem a Habilidade do Assassino.	| 	|deckbuildercards_098.png
 Zumbi	|Capanga|	Mate 1 carta inimiga na mesma zona em que você jogou esta carta. Se uma carta morrer por este efeito, crie 1 "Zumbi".	| 	|deckbuildercards_099.png
-Ilusão	|Capanga|	Coloque esta carta na sua mão. Você pode descartá-la pra impedir o ataque de 1 carta inimiga (o oponente perde o ponto de ação).	| Maldição	|deckbuildercards_100.png
-Demônio	|Capanga|	Coloque esta carta no topo do seu Deck. Ganhe 2 pontos de ação ao comprá-la e descarte-a.	| Maldição	|deckbuildercards_101.png
+Ilusão	|Capanga|	Coloque esta carta na sua mão. Você pode descartá-la pra impedir o ataque de 1 carta inimiga (o oponente perde o ponto de ação).	| 	|deckbuildercards_100.png
+Demônio	|Capanga|	Coloque esta carta no topo do seu Baralho. Ganhe 2 pontos de ação ao comprá-la e descarte-a.	| Maldição	|deckbuildercards_101.png
 Guarda-Sem-Cabeça	|Capanga|	O oponente deve atacar esta carta sempre que puder.	| 	|deckbuildercards_102.png
 Loucura	|Capanga|	Coloque esta carta na mão do oponente. Se houver 3 "Loucura" na mão dele, você vence o jogo.	| Maldição	|deckbuildercards_103.png
 Corvo	|Capanga|	Esta carta é tipo "Voador".	| Voador	|deckbuildercards_104.png
@@ -270,15 +270,15 @@ Sapo	|Capanga|	Bana 1 carta inimiga em qualquer posição e jogue esta carta na 
 Pedregulho	|Capanga|	Esta carta é tipo "Obstáculo".	| Obstáculo	|deckbuildercards_106.png
 Estátua	|Capanga|	Bana 1 carta inimiga que virou pra cima e jogue esta carta na posição da carta banida.	| 	|deckbuildercards_107.png
 Canção Sinistra	|Capanga|	Coloque esta carta na mão do oponente. Ele perde 1 ponto de ação para cada par de "Canção Sinistra" na mão.	| Maldição	|deckbuildercards_108.png
-Rato	|Capanga|	O oponente perde 1 tesouro na Fase de preparação dele se esta carta estiver na Zona do Tesouro.	| 	|deckbuildercards_109.png
-Urso	|Capanga|	Mate 1 carta inimiga em uma posição adjacente à esta carta durante a Fase de Preparação do oponente.	| 	|deckbuildercards_110.png
+Rato	|Capanga|	O oponente perde 1 tesouro na Fase 2 dele se esta carta estiver na Zona do Tesouro.	| 	|deckbuildercards_109.png
+Urso	|Capanga|	Mate 1 carta inimiga em uma posição adjacente à esta carta durante a Fase 2 do oponente.	| 	|deckbuildercards_110.png
 Donzela	|Capanga|	O jogador que matar 7 "Donzela" é o vencedor.	| 	|deckbuildercards_111.png
-Praga	|Capanga|	Coloque esta carta na mão do oponente. Enquanto segurar esta carta, ele deve descartar 1 carta do topo do Deck dele no fim do turno.	| Maldição	|deckbuildercards_112.png
+Praga	|Capanga|	Coloque esta carta na mão do oponente. Enquanto segurar esta carta, ele deve descartar 1 carta do topo do Baralho dele no fim do turno.	| Maldição	|deckbuildercards_112.png
 Ovelha	|Capanga|	Jogue esta carta em uma posição vazia da Zona 1 do oponente.	| 	|deckbuildercards_113.png
 Abóbora	|Capanga|	Quando quiser, durante o seu turno, descarte esta carta e crie 1 "Borobo" na mesma posição.	| 	|deckbuildercards_114.png
 Borobo	|Capanga|	Retorne 1 carta inimiga em qualquer posição pra mão do oponente, incluindo as viradas pra baixo.	| 	|deckbuildercards_115.png
-Partes do Mapa	|Capanga|	Se houver 3 "Partes do Mapa" na sua mão, ganhe 5 tesouros e descarte-as.	| Maldição	|deckbuildercards_116.png
-Predadores	|Capanga|	Coloque esta carta no topo do Deck do oponente. Se o jogador que comprá-la tiver um Assassino na mão, descarte-a. Senão, reembaralhe-a no Deck.	| Maldição	|deckbuildercards_117.png`;
+Partes do Mapa	|Capanga|	Se houver 3 "Partes do Mapa" na sua mão, ganhe 5 tesouros e descarte-as.	| 	|deckbuildercards_116.png
+Predadores	|Capanga|	Coloque esta carta no topo do Baralho do oponente. Se tiver um Assassino na mão quando comprá-la, descarte-a. Senão, reembaralhe-a no Baralho.	| Maldição	|deckbuildercards_117.png`;
 
             // Agora você tem o conteúdo do arquivo de texto (content).
             // Analise o conteúdo e preencha as informações das cartas e as imagens.

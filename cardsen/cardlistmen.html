@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eruma TCG Deckbuilding Tool</title>
+    <title>Eruma TCG Deckbuilder</title>
     <style>
         /* Reset de estilos e ajustes gerais */
         body, html {
@@ -89,7 +89,8 @@
     <p><input type="text" id="searchInput" onkeyup="searchCards()" placeholder="Card Search..."><br><br>
     <button onclick="sortAlphabetically()">Sort by Name</button><br>
     <button onclick="sortCardsByClass()">Sort by Class</button><br>
-    <button onclick="sortCardsByType()">Sort by Type</button></p>
+    <button onclick="sortCardsByType()">Sort by Type</button><br>
+    <button onclick="exportDeckToCSV()">Save Deck as CSV</button></p>
     
     <!-- Sobreposição para exibir detalhes da carta -->
     <div class="overlay" id="overlay">
@@ -202,7 +203,7 @@ Clementine	|Thief|	Gain 2 treasures for each card the opponent has more than you
 Alitza	|Thief|	Whenever you spend 1 action point this turn, move this card 1 position.	| 	|deckbuildercards_046.png
 White King	|Spy|	Enemy cards cannot move on the opponent’s turn.	| 	|deckbuildercards_047.png
 Naptali	|Spy|	Enemy cards cannot flip face-up on the opponent's turn.	| 	|deckbuildercards_048.png
-Bumi	|Spy|	Destroy the treasure position below this card (flip the Treasure card). Destroyed positions cannot be used to steal.	| Lurker	|deckbuildercards_049.png
+Bumi	|Spy|	Destroy the treasure position below this card (flip the Treasure card). Destroyed positions cannot be used to steal.	| Prowler	|deckbuildercards_049.png
 Dona Aranha	|Spy|	Enemy cards cannot return to the opponent's hand.	| 	|deckbuildercards_050.png
 Trevor	|Spy|	Flip all face-up cards face-down and flip all face-down cards face-up.	| 	|deckbuildercards_051.png
 Ventus	|Spy|	Move all enemy cards 1 position backward if that position is empty.	| Flying	|deckbuildercards_052.png
@@ -222,11 +223,11 @@ Taika	|Spy|	If you cannot draw a card, you are the winner.	| Invulnerable	|deckb
 Wivern	|Spy|	No card can move to adjacent positions to this card on the opponent's turn.	| 	|deckbuildercards_066.png
 Trogg	|Spy|	Move 1 card in an adjacent or diagonal position to this card to another adjacent or diagonal position, if that position is empty.	| 	|deckbuildercards_067.png
 Malac	|Spy|	Whenever one of your cards is blocked, gain 1 action point.	| 	|deckbuildercards_068.png
-Gévaudan	|Spy|	Enemy cards cannot be readied on the opponent's turn.	| Lurker	|deckbuildercards_069.png
+Gévaudan	|Spy|	Enemy cards cannot be readied on the opponent's turn.	| Prowler	|deckbuildercards_069.png
 Pazu	|Spy|	This card and another card of your choice cannot be flipped face-up or face-down during this turn.	| Flying	|deckbuildercards_070.png
 Al Haddin	|Spy|	Look through all cards in your Deck and place 3 cards on the top of it in any order.	| 	|deckbuildercards_071.png
 Octavius	|Spy|	Whenever an enemy card flips face-up on the opponent's turn, exhaust it.	| Invulnerable	|deckbuildercards_072.png
-Caelia	|Spy|	Swap positions with another of your cards and flip both face down.	| Lurker	|deckbuildercards_073.png
+Caelia	|Spy|	Swap positions with another of your cards and flip both face down.	| Prowler	|deckbuildercards_073.png
 Pirulita	|Spy|	Mimic the power of the last card that died (choose in case of a tie).	| 	|deckbuildercards_074.png
 Merrick	|Spy|	When this card dies, ready 1 card.	| Regenerative	|deckbuildercards_075.png
 Dr. Klonn	|Spy|	Place 1 card from your Graveyard face-up in an empty position in your Zone 1.	| 	|deckbuildercards_076.png
@@ -253,7 +254,7 @@ César	|Maniac|	Create 3 "Map Parts" and place them at the bottom of your Deck. 
 Pirate	|Henchman|	This card has the Thief Ability.	| 	|deckbuildercards_097.png
 Shark	|Henchman|	This card has the Assassin Ability.	| 	|deckbuildercards_098.png
 Zombie	|Henchman|	Kill 1 enemy card in the same zone where you played this card. If a card dies by this effect, create 1 "Zombie".	| 	|deckbuildercards_099.png
-Illusion	|Henchman|	Place this card in your hand. You may discard it to prevent an enemy card's attack (the opponent loses that action point).	| Curse	|deckbuildercards_100.png
+Illusion	|Henchman|	Place this card in your hand. You may discard it to prevent an enemy card's attack (the opponent loses that action point).	| 	|deckbuildercards_100.png
 Demon	|Henchman|	Place this card on top of your Deck. Gain 2 action points when you draw it, then discard it.	| Curse	|deckbuildercards_101.png
 Headless Guard	|Henchman|	The opponent must attack this card whenever possible.	| 	|deckbuildercards_102.png
 Madness	|Henchman|	Place this card in the opponent's hand. If there are 3 "Madness" in their hand, you are the winner.	| Curse	|deckbuildercards_103.png
@@ -269,7 +270,7 @@ Plague	|Henchman|	Place this card in the opponent's hand. While holding this car
 Sheep	|Henchman|	Play this card in an empty position in the opponent's Zone 1.	| 	|deckbuildercards_113.png
 Pumpkin	|Henchman|	At any time during your turn, discard this card and create 1 "Borobo" in its position.	| 	|deckbuildercards_114.png
 Borobo	|Henchman|	Return 1 enemy card in any position to the opponent's hand, including face-down cards.	| 	|deckbuildercards_115.png
-Map Parts	|Henchman|	If there are 3 'Map Parts' in your hand, gain 5 treasures and discard them.	| Curse	|deckbuildercards_116.png
+Map Parts	|Henchman|	If there are 3 'Map Parts' in your hand, gain 5 treasures and discard them.	| 	|deckbuildercards_116.png
 Predators	|Henchman|	Place this card on top of the opponent's Deck. If they have an Assassin in their hand, discard this card. Otherwise, shuffle it back into their Deck.	| Curse	|deckbuildercards_117.png`;
 
             // Agora você tem o conteúdo do arquivo de texto (content).
@@ -341,29 +342,63 @@ Predators	|Henchman|	Place this card on top of the opponent's Deck. If they have
                 cardContainer.appendChild(card);
             }
         }
+
+        // Função salvar Deck em CSV
+        function exportDeckToCSV() {
+        const deck = document.getElementById('rightArea');
+        const cardsInDeck = deck.querySelectorAll('.card');
+        let csvContent = "face,verso,Label\n";
+
+        const imageBaseUrl = "https://fabioecco.github.io/erumatcg/cardsen/";
+        const imageBackUrl = "https://raw.githubusercontent.com/fabioecco/erumatcg/refs/heads/main/cardspt/cardback.png";
+
+        cardsInDeck.forEach(card => {
+            const image = card.getAttribute('data-image') || '';
+            const fullImageUrl = imageBaseUrl + image;
+            const backUrl = imageBackUrl;
+            const name = card.getAttribute('data-name') || '';
+
+            const row = [
+                `"${fullImageUrl}"`,
+                `"${backUrl}"`,
+                `"${name}"`
+            ].join(',');
+            csvContent += row + "\n";
+        });
+
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.setAttribute("href", url);
+        link.setAttribute("download", "deck_eruma.csv");
+        link.style.display = "none";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
     </script>
     <h3>Types</h3>
     <p>
 <strong>Curse</strong><br>
-You cannot play this card.<br>
+May only be removed from hand by discard.<br>
 <strong>Evasive</strong><br>
-You may flip this card face-down.<br>
+May be flipped face down.<br>
 <strong>Flying</strong><br>
-You may return this card to your hand.<br>
+May return to your hand.<br>
 <strong>Invulnerable</strong><br>
-Only "Slayer" type cards can attack or kill this card using their power.<br>
-<strong>Lurker</strong><br>
-When this card uses the Spy Ability it kills the card it blocked.<br>
+May only be attacked or killed by a "Slayer".<br>
 <strong>Obstacle</strong><br>
-Only "Strongman" type cards can attack or kill this card using their power.<br>
+May only be attacked or killed by a "Strongman".<br>
+<strong>Prowler</strong><br>
+Kills the card it blocks (spy only).<br>
 <strong>Regenerative</strong><br>
-You may return this card to your hand when it dies.<br>
+May return to your hand when it dies.<br>
 <strong>Slayer</strong><br>
-This card can attack or kill "Invulnerable" type cards using its power.<br>
+May attack and kill an "Invulnerable".<br>
 <strong>Stalker</strong><br>
-This card can move into the opponent's zones.<br>
+May move to opponent zones.<br>
 <strong>Strongman</strong><br>
-This card can attack or kill "Obstacle" type cards using its power.<br>
+May attack and kill an "Obstacle".<br>
     </p>
     <h3>Power Speed</h3>
     <p>
