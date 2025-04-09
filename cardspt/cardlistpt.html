@@ -94,6 +94,7 @@
         <button onclick="sortAlphabetically()">Organizar por Nome</button>
         <button onclick="sortCardsByClass()">Organizar por Classe</button>
         <button onclick="sortCardsByType()">Organizar por Tipo</button>
+        <button onclick="exportDeckToCSV()">Salvar Deck em CSV</button>
         
         <div id="cardContainer" class="card-container"></div>
     </div>
@@ -348,7 +349,7 @@ Predadores	|Capanga|	Coloque esta carta no topo do Deck do oponente. Se o jogado
                 cardContainer.appendChild(card);
             }
         }
-        
+
         // Função salvar Deck em CSV
         function exportDeckToCSV() {
         const deck = document.getElementById('rightArea');
