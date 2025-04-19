@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Eruma TCG Deckbuilder</title>
     <style>
         /* Reset de estilos e ajustes gerais */
@@ -10,31 +11,34 @@
             font-family: Arial, sans-serif;
             font-size: 16px;
         }
-        
+    
         /* Estilos para as áreas de cartas */
         .card-container {
             width: 100%;
-            height: 100%;
             float: left;
             border: 2px dashed #000;
         }
-
+    
         .deck {
             width: 100%;
-            height: 300px;
+            min-height: 300px;
             float: left;
             border: 2px dashed #000;
             background-color: #ABEABA;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: flex-start;
+            box-sizing: border-box;
         }
-
+    
         .card {
             display: inline-block;
-            width: auto;
             height: 150px;
             margin: 5px;
             cursor: pointer;
         }
-
+    
         /* Estilos para a sobreposição */
         .overlay {
             display: none;
@@ -43,10 +47,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Fundo escuro transparente */
+            background-color: rgba(0, 0, 0, 0.7);
             z-index: 1;
         }
-
+    
         .card-details {
             position: absolute;
             top: 50%;
@@ -57,7 +61,7 @@
             border-radius: 5px;
             padding: 20px;
         }
-
+    
         /* Aumentar o tamanho da imagem em 50% */
         #expandedCard {
             width: 50%;
@@ -65,8 +69,23 @@
             display: block;
             margin: 0 auto 10px auto;
         }
-
-    </style>
+    
+        /* Estilos para telas menores */
+        @media (max-width: 768px) {
+            .card {
+                height: 220px; /* Cartas maiores em telas menores */
+            }
+    
+            #expandedCard {
+                width: 90%; /* Expandir mais na tela pequena */
+            }
+    
+            body {
+                font-size: 18px;
+            }
+        }
+    
+    </style>    
     <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
     <script>
     window.onload = function() {
@@ -74,7 +93,6 @@
     };</script>
 </head>
 <body>
-    <!--<h1>Eruma TCG Card Database</h1>-->
     <img src="logodeckbuilding.png" alt="logo" style="width:200px;">
     <p>
         <a href="https://fabioecco.github.io/erumatcg/cardsen/cardlisten.html"><i class="em em-flag-um" aria-role="presentation" aria-label="U.S. Outlying Islands Flag"></i></a>&nbsp;
@@ -104,6 +122,7 @@
         <div class="card-details" id="cardDetails">
             <img id="expandedCard" class="card" src="">
             <div id="cardInfo"></div>
+            <button onclick="addCardToDeck()">Add to Deck</button>&nbsp;
             <button onclick="closeOverlay()">Close</button>
         </div>
     </div>
@@ -115,6 +134,7 @@
         const cardContainer = document.getElementById('cardContainer');
         const rightArea = document.getElementById('rightArea');
         const cards = [];
+        let currentExpandedCardElement = null;
 
         // Torna ambas as áreas classificáveis
         $(".card-container, #rightArea").sortable({
@@ -138,6 +158,16 @@
 
             const overlay = document.getElementById('overlay');
             overlay.style.display = 'block';
+            currentExpandedCardElement = card; // salva a carta original
+        }
+        function addCardToDeck() {
+            if (currentExpandedCardElement && !rightArea.contains(currentExpandedCardElement)) {
+                rightArea.appendChild(currentExpandedCardElement);
+                $(".card-container, #rightArea").sortable("refresh");
+                closeOverlay();
+            } else {
+                alert("Essa carta já está na sua área.");
+            }
         }
 
         // Função para fechar a sobreposição
