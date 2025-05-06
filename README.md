@@ -1,1 +1,1 @@
-Eruma TCG website e Card List
+Eruma Card Game website e card list
