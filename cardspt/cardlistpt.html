@@ -2,7 +2,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Eruma TCG Deckbuilder</title>
+    <title>Eruma Card Game Deckbuilder</title>
     <style>
         /* Reset de estilos e ajustes gerais */
         body, html {
@@ -95,8 +95,8 @@
 <body>
     <img src="logodeckbuilding.png" alt="logo" style="width:200px;">
     <p>
-        <a href="https://fabioecco.github.io/erumatcg/cardsen/cardlisten.html"><i class="em em-flag-um" aria-role="presentation" aria-label="U.S. Outlying Islands Flag"></i></a>&nbsp;
-        <a href="https://fabioecco.github.io/erumatcg/cardspt/cardlistpt.html"><i class="em em-flag-br" aria-role="presentation" aria-label="Brazil Flag"></i></a><br>
+        <a href="https://fabioecco.github.io/erumacardgame/cardsen/cardlisten.html"><i class="em em-flag-um" aria-role="presentation" aria-label="U.S. Outlying Islands Flag"></i></a>&nbsp;
+        <a href="https://fabioecco.github.io/erumacardgame/cardspt/cardlistpt.html"><i class="em em-flag-br" aria-role="presentation" aria-label="Brazil Flag"></i></a><br>
         <strong>Organize ou filtre as cartas por palavras específicas em seu texto usando a caixa de pesquisa<br>Clique para ampliar as cartas.</strong>
     </p>
 
@@ -386,8 +386,8 @@ Predadores	|Capanga|	Coloque esta carta no topo do Baralho do oponente. Se tiver
         const cardsInDeck = deck.querySelectorAll('.card');
         let csvContent = "face,verso,Label\n";
 
-        const imageBaseUrl = "https://fabioecco.github.io/erumatcg/cardspt/";
-        const imageBackUrl = "https://raw.githubusercontent.com/fabioecco/erumatcg/refs/heads/main/cardspt/cardback.png";
+        const imageBaseUrl = "https://fabioecco.github.io/erumacardgame/cardspt/";
+        const imageBackUrl = "https://raw.githubusercontent.com/fabioecco/erumacardgame/refs/heads/main/cardspt/cardback.png";
 
         cardsInDeck.forEach(card => {
             const image = card.getAttribute('data-image') || '';
@@ -446,6 +446,6 @@ Predadores	|Capanga|	Coloque esta carta no topo do Baralho do oponente. Se tiver
     <strong>Contínua</strong><br>
     O poder começa a resolver no turno em que é usado e continua nos turnos de ambos os jogadores. A carta não é preparada na Fase 2.<br>
     </p>
-    <p style="text-align:center"><br><br>Eruma TCG. Copyright © 2023-2025 Fabio Esteves. All rights reserved.</p>
+    <p style="text-align:center"><br><br>Copyright © 2023-2025 Fabio Esteves. All rights reserved.</p>
 </body>
 </html>
