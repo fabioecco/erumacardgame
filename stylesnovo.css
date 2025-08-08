@@ -103,6 +103,8 @@ html, body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+    padding: 2rem;
+  min-height: 60vh;
 }
 
 .parallax-section {
@@ -267,6 +269,12 @@ footer {
     font-size: 14px;
   }
 
+    .parallax-section,
+  .parallax-section-large {
+    min-height: 45vh;
+    padding: 1.5rem 1rem;
+  }
+
   .nav-links {
     display: none;
     flex-direction: column;
@@ -308,9 +316,12 @@ footer {
   .content-no-top,
   .text-content,
   .parallax-section .content {
-    font-size: 1.1rem;
-    max-width: 95%;
-    padding: 1rem;
+  font-size: 1.3rem;
+  max-width: 90%;
+  margin: 0 auto;
+  text-align: justify;
+  text-align-last: center;
+  color: white;
   }
 
   .pirata-two {
