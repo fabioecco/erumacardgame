@@ -68,9 +68,11 @@ function resetCard(card) {
     card.querySelector('.foil-card-inner').style.transform = 'rotateX(0deg) rotateY(0deg)';
 }
 
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
+  document.addEventListener("DOMContentLoaded", function () {
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
 
-hamburger.addEventListener('click', () => {
-  navLinks.classList.toggle('active');
-});
+    hamburger.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+  });
