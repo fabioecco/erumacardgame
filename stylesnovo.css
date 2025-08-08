@@ -37,7 +37,6 @@ html, body {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
@@ -53,7 +52,6 @@ html, body {
 .navbar .nav-links {
   list-style: none;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   padding: 0;
   margin: 0;
@@ -67,6 +65,37 @@ html, body {
   color: white;
   text-decoration: none;
   font-size: 1rem;
+}
+
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .navbar .nav-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.95);
+    position: absolute;
+    top: 60px;
+    left: 0;
+  }
+
+  .navbar .nav-links.show {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+  }
 }
 
 /* Banner */
@@ -245,55 +274,4 @@ footer {
   padding: 20px;
   text-align: center;
   font-size: 0.9rem;
-}
-
-/* RESPONSIVIDADE */
-@media (max-width: 768px) {
-  html {
-    font-size: 14px;
-  }
-
-  .navbar {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .nav-links {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .content,
-  .content-no-top,
-  .text-content,
-  .parallax-section .content {
-    font-size: 1.1rem;
-    max-width: 95%;
-    padding: 1rem;
-  }
-
-  .pirata-two {
-    font-size: 2rem;
-  }
-
-  .move-up,
-  .fade-in {
-    padding: 1rem;
-    margin-top: 0;
-  }
-
-  .content {
-    margin-top: 0;
-  }
-
-  .image-container {
-    flex-direction: column;
-    transform: none !important;
-    opacity: 1 !important;
-  }
-
-  .foil-card {
-    width: 90%;
-    max-width: 225px;
-  }
 }
