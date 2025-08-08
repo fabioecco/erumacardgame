@@ -15,9 +15,7 @@
   <header>
     <nav class="navbar">
       <img src="logo.png" alt="Logo" class="logo">
-        <button class="hamburger" aria-label="Abrir menu">
-            &#9776;
-        </button>
+<button class="hamburger" aria-label="Abrir menu" onclick="toggleMenu()">&#9776;</button>
       <ul class="nav-links">
         <li><a href="https://fabioecco.github.io/erumacardgame/index.html">Início</a></li>
         <li><a href="#introducao">Introdução</a></li>
@@ -141,13 +139,12 @@
   <footer>
     <p>Copyright &copy; 2023-2025 Fabio Esteves. All rights reserved.</p>
   </footer>
-
-  <script src="scriptsnovo.js"></script>
-  <script>
-  function toggleMenu() {
-    const nav = document.getElementById("navLinks");
-    nav.classList.toggle("show");
-  }
+<script>
+function toggleMenu() {
+  const nav = document.getElementById("navLinks");
+  nav.classList.toggle("show");
+}
 </script>
+<script src="scripts.js"></script>
 </body>
 </html>

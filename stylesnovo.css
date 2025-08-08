@@ -37,6 +37,7 @@ html, body {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.8);
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
@@ -52,6 +53,7 @@ html, body {
 .navbar .nav-links {
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   padding: 0;
   margin: 0;
@@ -65,37 +67,6 @@ html, body {
   color: white;
   text-decoration: none;
   font-size: 1rem;
-}
-
-.hamburger {
-  display: none;
-  font-size: 2rem;
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  margin-left: auto;
-}
-
-@media (max-width: 768px) {
-  .navbar .nav-links {
-    display: none;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.95);
-    position: absolute;
-    top: 60px;
-    left: 0;
-  }
-
-  .navbar .nav-links.show {
-    display: flex;
-  }
-
-  .hamburger {
-    display: block;
-  }
 }
 
 /* Banner */
@@ -274,4 +245,89 @@ footer {
   padding: 20px;
   text-align: center;
   font-size: 0.9rem;
+}
+
+/* Botão hamburger escondido no desktop */
+.hamburger {
+  font-size: 2rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none; /* escondido por padrão */
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  z-index: 1001; /* acima do menu */
+}
+
+/* */
+
+/* RESPONSIVO - telas pequenas */
+@media (max-width: 768px) {
+    html {
+    font-size: 14px;
+  }
+  /* Esconde menu horizontal */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background-color: #111;
+    position: fixed;
+    top: 60px; /* logo + barra */
+    right: 0;
+    width: 200px;
+    height: calc(100% - 60px);
+    padding-top: 1rem;
+    z-index: 1000;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+    transform: translateX(100%);
+  }
+  
+  /* Mostra o botão hambúrguer */
+  .hamburger {
+    display: block;
+  }
+
+  /* Menu ativo (visível) */
+  .nav-links.show {
+    display: flex;
+    transform: translateX(0);
+  }
+/* */
+
+  .content,
+  .content-no-top,
+  .text-content,
+  .parallax-section .content {
+    font-size: 1.1rem;
+    max-width: 95%;
+    padding: 1rem;
+  }
+
+  .pirata-two {
+    font-size: 2rem;
+  }
+
+  .move-up,
+  .fade-in {
+    padding: 1rem;
+    margin-top: 0;
+  }
+
+  .content {
+    margin-top: 0;
+  }
+
+  .image-container {
+    flex-direction: column;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .foil-card {
+    width: 90%;
+    max-width: 225px;
+  }
 }
