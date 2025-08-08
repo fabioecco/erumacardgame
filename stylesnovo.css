@@ -1,0 +1,297 @@
+/* Resetando margens e padding */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Roboto", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+  color: #FFFFFF;
+  background-color: #000000;
+  overflow-x: clip;
+  font-size: 16px; /* base para rem */
+}
+
+.pirata-one-regular {
+  font-family: "Pirata One", serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #e52e31;
+  text-shadow: 2px 2px #000000;
+}
+
+.pirata-two {
+  font-family: "Pirata One", serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  font-style: normal;
+  color: #e52e31;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 10px 15px;
+  z-index: 1000;
+}
+
+.navbar .logo {
+  height: 50px;
+  object-fit: contain;
+}
+
+.navbar .nav-links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar .nav-links li {
+  margin: 0 10px;
+}
+
+.navbar .nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+/* Banner */
+.banner {
+  width: 100%;
+  height: 0;
+  padding-top: 45%;
+  background: url('bannertopo.png') no-repeat center center;
+  background-size: cover;
+  z-index: 1;
+  position: relative;
+}
+
+/* Scroll */
+.scroll-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.scroll-content,
+.fade-in,
+.move-up {
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Parallax */
+.parallax-section,
+.parallax-section-large {
+  background-image: url('paralaxeruma.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.parallax-section {
+  height: 500px;
+}
+
+.parallax-section-large {
+  height: 620px;
+}
+
+.parallax-section .content {
+  font-size: 1.3rem;
+  padding: 2rem;
+  max-width: 90%;
+  margin: 0 auto;
+  text-align: justify;
+  text-align-last: center;
+  color: white;
+}
+
+/* Cards e texto */
+.scrolling-images {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem 1rem;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 320px;
+  opacity: 0;
+  transform: translateX(100vw);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  margin-bottom: 20px;
+}
+
+.image-container.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+}
+
+.text-content {
+  color: #fff;
+  font-size: 1rem;
+  padding: 1rem;
+  text-align: justify;
+}
+
+/* Seções de conteúdo */
+.content,
+.content-no-top {
+  font-size: 1.3rem;
+  max-width: 90%;
+  margin: 0 auto;
+  color: white;
+  position: relative;
+  z-index: 3;
+  text-align: justify;
+  text-align-last: center;
+}
+
+.content {
+  margin-top: -60px;
+}
+
+.fade-in {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+}
+
+.move-up {
+  transform: translateY(100px);
+  transition: transform 0.5s ease-in-out;
+  margin-top: -60px;
+}
+
+.move-up.visible {
+  transform: translateY(0);
+}
+
+/* Cards 3D */
+.foil-card {
+  width: 225px;
+  height: 311px;
+  position: relative;
+  margin: 10px;
+  perspective: 1000px;
+}
+
+.foil-card-inner {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+  transition: transform 0.1s;
+}
+
+.foil-card-front {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-position: center;
+  position: absolute;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* Vídeos */
+.video-section iframe,
+iframe.fp-iframe {
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Footer */
+footer {
+  background-color: #FFFFFF;
+  color: #000000;
+  padding: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .content,
+  .content-no-top,
+  .text-content,
+  .parallax-section .content {
+    font-size: 1.1rem;
+    max-width: 95%;
+    padding: 1rem;
+  }
+
+  .pirata-two {
+    font-size: 2rem;
+  }
+
+  .move-up,
+  .fade-in {
+    padding: 1rem;
+    margin-top: 0;
+  }
+
+  .content {
+    margin-top: 0;
+  }
+
+  .image-container {
+    flex-direction: column;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .foil-card {
+    width: 90%;
+    max-width: 225px;
+  }
+}

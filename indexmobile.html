@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eruma</title>
+  <link rel="stylesheet" href="stylesnovo.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar">
+      <img src="logo.png" alt="Logo" class="logo">
+      <ul class="nav-links">
+        <li><a href="https://fabioecco.github.io/erumacardgame/index.html">Início</a></li>
+        <li><a href="#introducao">Introdução</a></li>
+        <li><a href="#historia">História</a></li>
+        <li><a href="#como-jogar">Como Jogar</a></li>
+        <li><a href="https://fabioecco.github.io/erumacardgame/cardspt/cardlistpt.html" target="_blank">Cartas</a></li>
+        <li><a href="#jogue-agora">Jogue Agora</a></li>
+        <li><a href="https://discord.gg/N8m6zgCANS" target="_blank">Comunidade</a></li>
+      </ul>
+    </nav>
+  </header>
+
+    <!-- Banner no topo -->
+  <div class="banner" id="home">
+    <!-- A imagem de fundo será ajustada conforme a largura -->
+  </div>
+
+  <!-- Scroll Content -->
+  <section class="move-up">
+    <div>
+    <img src="cards.png" alt="Imagem que se move para cima" class="scroll-image">
+    </div>
+  </section>
+
+  <section class="fade-in">
+    <div class="content">
+      <h1 class="pirata-one-regular" id="introducao">Explore ruínas amaldiçoadas e lute por Tesouros lendários!</h1>
+        <p>Eruma é um jogo competitivo para 2 jogadores onde cada um comanda um grupo de bandidos exilados em um continente em ruínas, 
+          berço de deuses malignos e tesouros fabulosos. Desafie seus amigos neste card game com jogabilidade original e viciante:<br><br>
+          &#8226 Regras simples com profundidade tática.<br><br>
+          &#8226 Planeje, posicione e mova suas cartas estrategicamente.<br><br>
+          &#8226 Partidas rápidas com combos poderosos.</p>
+    </div>
+</section>
+
+    <!-- Parallax Section -->
+    <section class="parallax-section">
+      <div class="content">
+        <h1 class="pirata-one-regular" id="historia">Desvende os mistérios do passado.</h1>
+        <p><i>"Chamaram-me de pecador e arrancaram-me a vida. Mas esta terra amaldiçoada já foi grandiosa e o ouro é tão abundante quanto 
+          os ossos. Há vida aqui, se eu tiver a vontade para agarrá-la. Caminharei entre as sombras e derramarei sangue para arrancar deste 
+          mundo aquilo que me é devido. Fui exilado e condenado a viver sob o manto do medo. E se minha alma houver de sobreviver, 
+          uma coisa apenas devo cumprir: subjugar a escuridão dentro de mim."</i><br>Baltazar de Vernes, 1672<br><a style="color:#e52e31;text-shadow: 2px 2px #000000;" href="historia.html">Leia Mais</a></p>
+      </div>
+    </section>
+
+    <section>
+      <div class="content-no-top">
+        <h1 class="pirata-one-regular">Construa seu baralho combinando quatro diferentes Classes!</h1>
+          <p>Um baralho de Eruma é composto por 15 cartas de um único tipo: Bandidos.
+            Cada Bandido tem um poder único e uma entre quatro classes que representa sua especialidade.</p>
+      </div>
+        <!-- Imagens que deslizam -->
+  <div class="scrolling-images">
+    <div class="image-container"><br><br><br><br><br><br><br>
+      <div class="foil-card" onmousemove="rotateCard(event, this)" onmouseout="resetCard(this)">
+        <div class="foil-card-inner">
+            <div class="foil-card-front" style="background-image: url('cartaassassino.png');background-repeat: no-repeat;"></div>
+        </div>
+    </div>
+      <p class="text-content"><span class="pirata-two">Assassino</span><br>Os assassinos são especialistas em matar com precisão e furtividade. Mestres em ataques letais e golpes sujos, eles utilizam 
+        lâminas afiadas e armas de fogo para abater seu alvos sem misericórdia, o que os torna uma ameaça mortal em qualquer cenário.</p>
+    </div>
+    <div class="image-container"><br><br><br><br><br><br><br>
+      <div class="foil-card" onmousemove="rotateCard(event, this)" onmouseout="resetCard(this)">
+        <div class="foil-card-inner">
+            <div class="foil-card-front" style="background-image: url('cartaladrao.png');background-repeat: no-repeat;"></div>
+        </div>
+    </div>
+      <p class="text-content"><span class="pirata-two">Ladrão</span><br>Os ladrões são mestres em arrombamento, capazes de invadir e roubar locais protegidos sem serem percebidos. Sua astúcia e agilidade 
+        os permite abrir fechaduras complexas, desativar armadilhas e escapar por passagens secretas.</p>
+    </div>
+    <div class="image-container"><br><br><br><br><br><br><br>
+      <div class="foil-card" onmousemove="rotateCard(event, this)" onmouseout="resetCard(this)">
+        <div class="foil-card-inner">
+            <div class="foil-card-front" style="background-image: url('cartaespiao.png');background-repeat: no-repeat;"></div>
+        </div>
+    </div>
+      <p class="text-content"><span class="pirata-two">Espião</span><br>Os espiões são especialistas em disfarce e sabotagem, agindo nas sombras para estar sempre um passo à frente do inimigo. Mestres 
+        em furtividade, eles atacam em momentos oportunos para sabotar os planos dos seus adversários e virar o jogo.</p>
+    </div>
+    <div class="image-container"><br><br><br><br><br><br><br>
+      <div class="foil-card" onmousemove="rotateCard(event, this)" onmouseout="resetCard(this)">
+        <div class="foil-card-inner">
+            <div class="foil-card-front" style="background-image: url('cartamaniaco.png');background-repeat: no-repeat;"></div>
+        </div>
+    </div>
+      <p class="text-content"><span class="pirata-two">Maníaco</span><br>Os maníacos são estrategistas loucos por poder que controlam capangas por meio da força e intimidação. Sempre calculistas, são 
+        mestres em orquestrar planos malignos, garantindo que nada ocorra sem seu conhecimento ou permissão.</p>
+    </div>
+  </div>
+  </section>
+
+      <!-- Rulebook Parallax Section -->
+      <section class="parallax-section-large">
+        <div class="content-no-top">
+          <br><h1 class="pirata-one-regular" id="como-jogar">Aprenda a Jogar com o Manual e Vídeo.</h1>
+          <iframe allowfullscreen="allowfullscreen" scrolling="no" class="fp-iframe" src="https://heyzine.com/flip-book/1bd08fc568.html" style="width: 100%; height: 420px;"></iframe>
+        </div>
+      </section>
+
+  <!-- Video Section -->
+  <section>
+    <div class="video-section">
+      <iframe style="aspect-ratio: 16 / 9; width: 70% !important;" src="https://www.youtube.com/embed/YXVhyxEYrPU?si=iWV_6ST_wfZF6_3a" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <!-- Jogue Agora -->
+<section>
+  <div class="content-no-top">
+    <br><h1 class="pirata-one-regular" id="jogue-agora">Jogue online agora, de graça!</h1>
+        <p>Veja a lista de cartas do primeiro set <a style="color:#e52e31;text-shadow: 2px 2px #000000;" href="https://fabioecco.github.io/erumacardgame/cardspt/cardlistpt.html" target="_blank">aqui</a> e construa o seu baralho, ou jogue com os baralhos prontos no Tabletop Simulator ou no Playing Cards!<br>
+          <a style="text-decoration: none;" href="https://steamcommunity.com/sharedfiles/filedetails/?id=3181267945" target="_blank"><img style="width: 40%; height: auto; max-width: 300px;" src="jogueagora01.png" alt="TTS workshop" class="scroll-image"></a>
+          <a style="text-decoration: none;" href="https://playingcards.io/cggxg8" target="_blank"><img style="width: 40%; height: auto; max-width: 300px;" src="jogueagora02.png" alt="Playing Cards" class="scroll-image"></a>
+        </p>
+  </div>
+</section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Copyright &copy; 2023-2025 Fabio Esteves. All rights reserved.</p>
+  </footer>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
