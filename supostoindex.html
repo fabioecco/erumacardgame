@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Introdução</title>
+
+  <!-- Preload do frame final para evitar "flash" na troca -->
+  <link rel="preload" as="image" href="ultimo-frame.jpg" />
+
+  <style>
+    :root{
+      --fg:#fff;
+      --bg:#000;
+      --maxw: 72ch;         /* limite de largura para leitura confortável em desktop */
+      --space: clamp(12px, 3vw, 24px);
+      --space-lg: clamp(18px, 5vw, 36px);
+      --radius: 16px;
+    }
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--fg);
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .wrap {
+      width: min(100%, calc(var(--maxw) + var(--space)*2));
+      margin: 0 auto;
+      padding: var(--space);
+    }
+
+    .intro {
+      font-size: clamp(1rem, 2.8vw, 1.25rem);
+      margin: var(--space-lg) auto var(--space);
+      text-align: justify;
+    }
+
+    .media {
+      margin: 0 auto var(--space);
+      border-radius: var(--radius);
+      overflow: hidden; /* arredonda o GIF */
+    }
+
+    .media img {
+      width: 100%;
+      height: auto;
+      display: block;
+      image-rendering: auto;
+    }
+
+    .dialogo {
+      font-size: clamp(1rem, 2.6vw, 1.15rem);
+      margin: 0 auto var(--space-lg);
+      text-align: justify;
+    }
+
+    .opcoes {
+      display: grid;
+      gap: 10px;
+      margin: 0 auto var(--space-lg);
+    }
+
+    .opcoes a{
+      display: block;
+      text-decoration: none;
+      color: var(--fg);
+      border: 1px solid #333;
+      padding: clamp(10px, 2.8vw, 14px);
+      border-radius: calc(var(--radius) - 4px);
+      text-align: center;
+      font-size: clamp(1rem, 2.6vw, 1.1rem);
+      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+      background: #0b0b0b;
+    }
+    .opcoes a:hover, .opcoes a:focus-visible{
+      outline: none;
+      background: #141414;
+      border-color: #444;
+      transform: translateY(-1px);
+    }
+    .opcoes a:active{
+      transform: translateY(0);
+    }
+    
+    a:not(.opcoes a):link {
+      color: red;
+      text-decoration: none;
+    }
+
+    a:not(.opcoes a):hover {
+      color: red;
+      text-decoration: underline;
+    }
+
+    a:not(.opcoes a):visited {
+      color: red;
+    }
+
+    /* Aumenta toque-alvo em mobile */
+    @media (pointer: coarse){
+      .opcoes a { padding: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <!-- Texto de introdução (acima do GIF) -->
+    <p class="intro">
+      Você desembarca do navio com um mal pressentimento. O cais fede a peixe podre e sangue fresco.
+      A noite está fria e a névoa parece seguir cada passo seu. Você segue em direção à construção
+      iluminada e barulhenta próxima, mas é abordado por uma mulher carrancuda com uma cicatriz no rosto.
+    </p>
+
+    <!-- GIF em largura total -->
+    <figure class="media">
+      <img id="animacao"
+           src="GIF_playonce.gif"
+           alt="Cena introdutória no cais enevoado"
+           decoding="async"
+           fetchpriority="high" />
+    </figure>
+
+    <!-- Texto abaixo do GIF -->
+    <p id="fala" class="dialogo">
+      <strong>Estranha:</strong> “— Hoi, forasteiro! Ouvi dizer que você desembarcou sozinho e precisamos de um
+      substituto na reide que parte ao amanhecer. O último cara... bom, sobrou pouco pra enterrar. O pagamento é
+      justo... e você parece precisar.”
+    </p>
+
+    <!-- Opções A/B/C/D como links -->
+    <nav class="opcoes" aria-label="Opções de diálogo">
+      <a href="#" onclick="responder('A')">“Então... que lugar é esse?”</a>
+      <a href="#" onclick="responder('B')">“E se eu quiser participar, o que faço?”</a>
+      <a href="#" onclick="responder('C')">“Não tenho tempo, onde fica o mercado?”</a>
+      <a href="#" onclick="responder('D')">“Saia da frente, vim encontrar uns amigos.”</a>
+      <a href="#" onclick="responder('E')">“Quem é você?”</a>
+    </nav>
+  </main>
+
+  <script>
+    // === Configuração da troca GIF -> JPG ===
+    // Ajuste aqui a duração total do seu GIF (em milissegundos).
+    // Ex.: 3440 = 3,44s | 3000 = 3,00s
+    const DURACAO_GIF_MS = 3000;
+
+    const imgEl = document.getElementById('animacao');
+
+    // Pré-carrega o JPG final para evitar piscadas
+    const imgFinal = new Image();
+    imgFinal.src = 'ultimoframe.png';
+
+    // Troca após o tempo definido
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        // Mantém as dimensões, apenas troca o src
+        imgEl.src = imgFinal.src;
+      }, DURACAO_GIF_MS);
+    });
+
+    // Nome inicial da npc
+    let nomePersonagem = localStorage.getItem("nomeEstranha") || "Estranha";
+
+    function atualizarNome(novoNome) {
+      nomePersonagem = novoNome;
+      localStorage.setItem("nomeEstranha", novoNome);
+    }
+
+    // === Respostas do diálogo ===
+    function responder(opcao) {
+    const fala = document.getElementById('fala');
+
+    if (opcao === 'A') {
+      fala.innerHTML = `<strong>${nomePersonagem}:</strong> "— Eruma? Esse lugar é simples: dois grupos entram em uma catacumba e só um grupo sai. Com o bolso cheio se tiverem sorte. Aqui é o Porto dos Ossos."`;
+    }
+    else if (opcao === 'B') {
+      fala.innerHTML = `<strong>${nomePersonagem}:</strong> "— Ouça com atenção se você quiser voltar inteiro. <a href="https://heyzine.com/flip-book/1bd08fc568.html" target="_blank">Essas são as regras.</a> e se você topar, encontra a gente <a href="https://playingcards.io/cggxg8" target="_blank">neste lugar</a>. Ou <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3181267945" target="_blank">neste aqui.</a>"`;
+    }
+    else if (opcao === 'C') {
+      fala.innerHTML = `<strong>${nomePersonagem}:</strong> "— Ah, o atravessador se enrolou, mas logo logo você vai poder colocar a mão nos baralhos."`;
+    }
+    else if (opcao === 'D') {
+      fala.innerHTML = `<strong>${nomePersonagem}:</strong> "— Tá falando <a href="https://fabioecco.github.io/erumacardgame/cardspt/cardlistpt.html" target="_blank">desse pessoal</a>? Boa sorte, espero que eles ainda estejam vivos."`;
+    }
+    else if (opcao === 'E') {
+      atualizarNome("Rudy");
+      fala.innerHTML = `<strong>${nomePersonagem}:</strong> "— Pode me chamar de Rudy, mas se a gente se cruzar novamente, finja que nunca me viu."`;
+    }
+  }
+
+    // Ao carregar a página, garante que o texto inicial use o nome correto
+  window.addEventListener("DOMContentLoaded", () => {
+    const fala = document.getElementById('fala');
+    fala.innerHTML = fala.innerHTML.replace("Estranha", nomePersonagem);
+  });
+    
+  </script>
+</body>
+</html>
