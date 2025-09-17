@@ -2,7 +2,7 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Eruma Card Game Deckbuilder</title>
+    <title>Rogue Duel Deckbuilder</title>
     <style>
         /* Reset de estilos e ajustes gerais */
         body, html {
@@ -193,12 +193,12 @@
         // Função para carregar o arquivo de texto
         function loadTextFile() {
             const content = `Charlotte	|Assassino|	Mate 1 carta em qualquer posição.	| 	|deckbuildercards_001.png
-Makuna	|Assassino|	Mate ou descarte até 2 Capangas.	| 	|deckbuildercards_002.png
+Makuna	|Assassino|	Mate 2 Capangas em qualquer posição.	| 	|deckbuildercards_002.png
 Shimaru	|Assassino|	Mate todas as cartas inimigas que virarem pra cima neste turno.	| Evasiva	|deckbuildercards_003.png
 Sicarii	|Assassino|	Mate 1 carta tipo "Invulnerável" em qualquer posição.	| Exterminador	|deckbuildercards_004.png
 Beetrice	|Assassino|	Mate todas as cartas inimigas que roubarem tesouros no turno do oponente.	| Voador	|deckbuildercards_005.png
 Toxique	|Assassino|	Mate todas as cartas inimigas que virarem pra cima no turno do oponente.	| 	|deckbuildercards_006.png
-Erzsebet	|Assassino|	Dê Habilidade de Assassino pra uma carta sua até o fim do turno do oponente.	| Invulnerável	|deckbuildercards_007.png
+Erzsebet	|Assassino|	Dê o tipo "Invulnerável" pra 1 carta sua até o fim deste turno.	| Invulnerável	|deckbuildercards_007.png
 Rhowl	|Assassino|	Vire todas as cartas inimigas pra baixo.	| Invulnerável	|deckbuildercards_008.png
 Tintin	|Assassino|	Escolha um tipo para esta carta.	| 	|deckbuildercards_009.png
 Grimas	|Assassino|	Use um poder Rápido ou Lento de uma carta no Cemitério de qualquer jogador.	| 	|deckbuildercards_010.png
@@ -407,7 +407,7 @@ Predadores	|Capanga|	Coloque esta carta no topo do Baralho do oponente. Descarte
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.setAttribute("href", url);
-        link.setAttribute("download", "deck_eruma.csv");
+        link.setAttribute("download", "deck_rogueduel.csv");
         link.style.display = "none";
         document.body.appendChild(link);
         link.click();
@@ -423,11 +423,11 @@ Predadores	|Capanga|	Coloque esta carta no topo do Baralho do oponente. Descarte
     <strong>Fortão</strong><br>
     Pode atacar e matar um "Obstáculo".<br>
     <strong>Invulnerável</strong><br>
-    Só pode ser atacada ou morta por um "Exterminador".<br>
+    Só pode ser atacada ou morta por um "Exterminador".<br>(morre se atacar assassinos)<br>
     <strong>Maldição</strong><br>
     Só pode ser retirada da mão por descarte.<br>
     <strong>Obstáculo</strong><br>
-    Só pode ser atacada ou morta por um "Fortão".<br>
+    Só pode ser atacada ou morta por um "Fortão".<br>(morre se atacar assassinos)<br>
     <strong>Regenerativa</strong><br>
     Pode retornar pra sua mão quando morrer.<br>
     <strong>Sorrateira</strong><br>

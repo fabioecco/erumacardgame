@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Eruma Card Game Deckbuilder</title>
+    <title>Rogue Duel Deckbuilder</title>
     <style>
         /* Reset de estilos e ajustes gerais */
         body, html {
@@ -193,21 +193,21 @@
         // Função para carregar o arquivo de texto
         function loadTextFile() {
             const content = `Charlotte	|Assassin|	Kill 1 card in any position.	| 	|deckbuildercards_001.png
-Makuna	|Assassin|	Kill 2 Henchmen in any position.	| Impetuous	|deckbuildercards_002.png
+Makuna	|Assassin|	Kill 2 Henchmen in any position.	| 	|deckbuildercards_002.png
 Shimaru	|Assassin|	Whenever an enemy card flips face-up during this turn, kill it.	| Evasive	|deckbuildercards_003.png
-Picard and Boulle	|Assassin|	Kill 1 "Invulnerable" type card in any position.	| Slayer	|deckbuildercards_004.png
+Sicarii	|Assassin|	Kill 1 "Invulnerable" type card in any position.	| Slayer	|deckbuildercards_004.png
 Beetrice	|Assassin|	Whenever an enemy card steals a treasure during the opponent's turn, kill it.	| Flying	|deckbuildercards_005.png
 Toxique	|Assassin|	Whenever an enemy card flips face-up during the opponent's turn, kill it.	| 	|deckbuildercards_006.png
-Erzsebet	|Assassin|	Your cards can attack enemy face down cards.	| Invulnerable	|deckbuildercards_007.png
+Erzsebet	|Assassin|	Give "Invulnerable" type to 1 of your cards until the end of this turn.	| Invulnerable	|deckbuildercards_007.png
 Rhowl	|Assassin|	Flip all enemy cards face-down.	| Invulnerable	|deckbuildercards_008.png
 Tintin	|Assassin|	Give this card any Type.	| 	|deckbuildercards_009.png
 Grimas	|Assassin|	Use a Quick or Slow power from a card in any player’s Graveyard.	| 	|deckbuildercards_010.png
 Wicker	|Assassin|	Kill all enemy cards that do not move by the end of the opponent's turn.	| Slayer	|deckbuildercards_011.png
 Machado	|Assassin|	Kill all enemy cards in positions adjacent to this card.	| 	|deckbuildercards_012.png
-Muerte	|Assassin|	Draw up to 3 cards from your Graveyard.	| Impetuous	|deckbuildercards_013.png
+Muerte	|Assassin|	Draw up to 3 cards from your Graveyard.	| 	|deckbuildercards_013.png
 Sandiego	|Assassin|	Whenever this card kills another card during this turn, gain 2 treasures.	| 	|deckbuildercards_014.png
-Kuroshi	|Assassin|	Whenever your Assassins kill a card, gain 2 treasures.	| 	|deckbuildercards_015.png
-Peekaboo	|Assassin|	Move this card up to 3 positions this turn.	| 	|deckbuildercards_016.png
+Kuroshi	|Assassin|	Whenever your Assassins kill a card, gain 1 treasure.	| 	|deckbuildercards_015.png
+Peekaboo	|Assassin|	Move this card up to 3 positions.	| 	|deckbuildercards_016.png
 Karl and Sylv	|Assassin|	Kill 1 card in any position and move this card to the position of the killed card.	| Flying	|deckbuildercards_017.png
 Gallagher	|Assassin|	Whenever the opponent spends 1 action point, move this card 1 position, including to their zones.	| 	|deckbuildercards_018.png
 Araun	|Assassin|	Kill all exhausted enemy cards.	| 	|deckbuildercards_019.png
@@ -225,11 +225,11 @@ Hanged Man	|Thief|	For each card you return to your hand during this turn, choos
 Didi and Dimbo	|Thief|	When this card dies, you gain 3 treasures.	| 	|deckbuildercards_031.png
 Magnete	|Thief|	Choose 1 enemy card and keep the treasures that card steals.	| 	|deckbuildercards_032.png
 Lavenza	|Thief|	Place 1 Spy from your Deck into your hand and shuffle this card back into your Deck.	| Regenerative	|deckbuildercards_033.png
-Barrel	|Thief|	Steal 3 treasures if this card is in the Treasure Zone.	| Strongman	|deckbuildercards_034.png
+Barrel	|Thief|	Steal 3 treasures if this card is in the Treasure Zone.	| Strong	|deckbuildercards_034.png
 Flamel	|Thief|	Double your Treasure.	| 	|deckbuildercards_035.png
 Renart	|Thief|	Whenever a "Flying" type card returns to your hand this turn, gain 1 treasure.	| 	|deckbuildercards_036.png
 Sayyida	|Thief|	Whenever this card steals treasures, kill 1 card in the same column as this one.	| 	|deckbuildercards_037.png
-Otylia	|Thief|	Whenever a player discards 1 card, gain 2 treasures.	| 	|deckbuildercards_038.png
+Otylia	|Thief|	Whenever a player discards 1 card, gain 2 treasures.	| Vengeful	|deckbuildercards_038.png
 Baba	|Thief|	Gain 1 action point for each of your exhausted cards.	| Regenerative	|deckbuildercards_039.png
 Ganzu	|Thief|	Steal 2 treasures for each card you draw during this turn.	| 	|deckbuildercards_040.png
 Rox	|Thief|	Whenever an enemy card flips face-up during the opponent’s turn, gain 1 treasure.	| 	|deckbuildercards_041.png
@@ -241,13 +241,13 @@ Alitza	|Thief|	Whenever you spend 1 action point this turn, move this card 1 pos
 White King	|Spy|	Enemy cards cannot move on the opponent’s turn.	| 	|deckbuildercards_047.png
 Naptali	|Spy|	Enemy cards cannot flip face-up on the opponent's turn.	| 	|deckbuildercards_048.png
 Bumi	|Spy|	Destroy all the treasure positions (flip the Treasure cards). Destroyed positions cannot be used to steal.	| 	|deckbuildercards_049.png
-Dona Aranha	|Spy|	Enemy cards cannot return to the opponent's hand.	| 	|deckbuildercards_050.png
+Lady Spider	|Spy|	Enemy cards cannot return to the opponent's hand.	| 	|deckbuildercards_050.png
 Trevor	|Spy|	Flip all face-up cards face-down and flip all face-down cards face-up.	| 	|deckbuildercards_051.png
 Ventus	|Spy|	Move all enemy cards 1 position backward if that position is empty.	| Flying	|deckbuildercards_052.png
 Mr. Ivanov	|Spy|	Double your action points after triggering this power.	| 	|deckbuildercards_053.png
 Tormenta	|Spy|	Flip all enemy cards face-up.	| Flying	|deckbuildercards_054.png
 Nevoir	|Spy|	Flip all your cards face-down.	| 	|deckbuildercards_055.png
-Cannon	|Spy|	Play 1 card from your hand face-up in the Treasure Zone position in the same column as this card, if that position is empty.	| Strongman	|deckbuildercards_056.png
+Cannon	|Spy|	Play 1 card from your hand face-up in the Treasure Zone position in the same column as this card, if that position is empty.	| Strong	|deckbuildercards_056.png
 Cinder	|Spy|	Kill all face-up cards.	| Regenerative	|deckbuildercards_057.png
 Juju	|Spy|	Neither player’s Treasure can be altered during the opponent's turn.	| 	|deckbuildercards_058.png
 Eldritch	|Spy|	Return up to 4 cards adjacent to this one to their owner’s hand.	| 	|deckbuildercards_059.png
@@ -256,12 +256,12 @@ Kraemer	|Spy|	Halve the opponent's Treasure, round it up.	| Slayer	|deckbuilderc
 Glacáin	|Spy|	Declare 1 class. If the opponent draws a card with that class, they lose 2 action points. They can discard it to lose only 1 action point.	| Regenerative	|deckbuildercards_062.png
 Hodur	|Spy|	Move 1 enemy card to any empty position in your Zone 1.	| Slayer	|deckbuildercards_063.png
 Ekate	|Spy|	The opponent will not draw a card in their next Draw Phase.	| 	|deckbuildercards_064.png
-Taika	|Spy|	If you cannot draw a card, you are the winner.	| Invulnerable	|deckbuildercards_065.png
-Wivern	|Spy|	No card can move to adjacent positions to this card on the opponent's turn.	| 	|deckbuildercards_066.png
+Taika	|Spy|	If your Deck runs out, you are the winner.	| Invulnerable	|deckbuildercards_065.png
+Wivern	|Spy|	Other cards cannot move to positions adjacent to this card.	| 	|deckbuildercards_066.png
 Trogg	|Spy|	Move 1 card in an adjacent or diagonal position to this card to another adjacent or diagonal position, if that position is empty.	| Obstacle	|deckbuildercards_067.png
 Malac	|Spy|	Whenever one of your cards is blocked, gain 1 action point.	| 	|deckbuildercards_068.png
 Gévaudan	|Spy|	Enemy cards cannot be readied on the opponent's turn.	| Sneaky	|deckbuildercards_069.png
-Sofia	|Spy|	The Type of all face up cards do not work.	| 	|deckbuildercards_070.png
+Sofia	|Spy|	The Type of all face up cards do not work.	| Regenerative	|deckbuildercards_070.png
 Al Haddin	|Spy|	Look through all cards in your Deck and place 3 cards on the top of it in any order.	| 	|deckbuildercards_071.png
 Octavius	|Spy|	Whenever an enemy card flips face-up on the opponent's turn, exhaust it.	| Invulnerable	|deckbuildercards_072.png
 Caelia	|Spy|	Swap positions with another of your cards and flip both face down.	| Sneaky	|deckbuildercards_073.png
@@ -276,9 +276,9 @@ Hadini	|Maniac|	Create 1 "Frog".	| 	|deckbuildercards_081.png
 Grotheus	|Maniac|	Create 1 "Demon".	| Invulnerable	|deckbuildercards_082.png
 Hameline	|Maniac|	Create 1 "Crow" in every empty position in the Treasure Zone.	| 	|deckbuildercards_083.png
 Akhrunos	|Maniac|	Create 1 "Predators".	| Invulnerable	|deckbuildercards_084.png
-Gretel	|Maniac|	Create 1 "Rat" or 1 "Bear" and banish this card.	| Impetuous	|deckbuildercards_085.png
+Gretel	|Maniac|	Create 1 "Rat" or 1 "Bear" and banish this card.	| 	|deckbuildercards_085.png
 Kthul'haazgar	|Maniac|	Create 1 "Madness". You can only create up to 1 "Madness" per turn.	| Invulnerable	|deckbuildercards_086.png
-Pompeu	|Maniac|	Create 1 "Boulder".	| Strongman	|deckbuildercards_087.png
+Pompeu	|Maniac|	Create 1 "Boulder".	| Strong	|deckbuildercards_087.png
 Guilhotine	|Maniac|	Create 1 "Headless Guard".	| 	|deckbuildercards_088.png
 Daisy and Violet	|Maniac|	Create 2 "Eerie Song". You can only create up to 2 "Eerie Song" per turn.	| 	|deckbuildercards_089.png
 Euryale	|Maniac|	Whenever an enemy card flips face-up on the opponent's turn, create 1 "Statue".	| 	|deckbuildercards_090.png
@@ -292,7 +292,7 @@ Pirate	|Henchman|	This card has the Thief Skill.	| 	|deckbuildercards_097.png
 Shark	|Henchman|	This card has the Assassin Skill.	| 	|deckbuildercards_098.png
 Zombie	|Henchman|	Kill 1 enemy card in the same zone where you played this card. If a card dies by this effect, create 1 "Zombie".	| 	|deckbuildercards_099.png
 Illusion	|Henchman|	Place this card in your hand. You may discard it to prevent an enemy card's attack (the opponent loses that action point).	| 	|deckbuildercards_100.png
-Demon	|Henchman|	Place this card on top of your Deck. Gain 2 action points when you draw it, then discard it.	| Curse	|deckbuildercards_101.png
+Demon	|Henchman|	Place this card on top of your Deck. Gain 2 action points when you draw it, then discard it.	| Invulnerable	|deckbuildercards_101.png
 Headless Guard	|Henchman|	The opponent must attack this card whenever possible.	| 	|deckbuildercards_102.png
 Madness	|Henchman|	Place this card in the opponent's hand. If there are 3 "Madness" in their hand, you are the winner.	| Curse	|deckbuildercards_103.png
 Crow	|Henchman|	This card has "Flying" type.	| Flying	|deckbuildercards_104.png
@@ -302,13 +302,13 @@ Statue	|Henchman|	Banish 1 enemy card that flipped face up and play this card in
 Eerie Song	|Henchman|	Place this card in the opponent's hand. They lose 1 action point for each pair of "Eerie Song" in their hand.	| Curse	|deckbuildercards_108.png
 Rat	|Henchman|	Place this card in the opponent's hand. Whenever the opponent draws a card, they lose 1 treasure.	| Curse	|deckbuildercards_109.png
 Bear	|Henchman|	Place this card in the opponent's hand. Whenever a card returns to the opponent's hand, it is discarded.	| Curse	|deckbuildercards_110.png
-Maiden	|Henchman|	The first player to kill 7 "Maiden" is the winner.	| 	|deckbuildercards_111.png
+Maiden	|Henchman|	If 7 "Maiden" die, you are the winner.	| 	|deckbuildercards_111.png
 Plague	|Henchman|	Place this card in the opponent's hand. While holding this card, they must discard 1 card from the top of their Deck at their End Phase.	| Curse	|deckbuildercards_112.png
 Sheep	|Henchman|	Play this card in any empty position on the opponent's Zone 1.	| 	|deckbuildercards_113.png
-Pumpkin	|Henchman|	At any time during your turn, discard this card and create 1 "Borobo" in its position.	| 	|deckbuildercards_114.png
-Borobo	|Henchman|	Return 1 enemy card in any position to the opponent's hand.	| 	|deckbuildercards_115.png
+Pumpkin	|Henchman|	In your Draw Phase, discard this card and create 1 "Borobo" in the same position.	| 	|deckbuildercards_114.png
+Borobo	|Henchman|	Return 1 card in any position to the bottom of its owner’s Deck. Henchmen return to the Extra Deck.	| 	|deckbuildercards_115.png
 Map Parts	|Henchman|	If there are 3 'Map Parts' in your hand, gain 5 treasures and discard them.	| 	|deckbuildercards_116.png
-Predators	|Henchman|	Place this card on top of the opponent's Deck. If they have an Assassin in their hand, discard this card. Otherwise, shuffle it back into their Deck.	| Curse	|deckbuildercards_117.png`;
+Predators	|Henchman|	Place this card on top of the opponent's Deck. If they have an Assassin in their hand, discard this card. Otherwise, shuffle it back into their Deck.	| 	|deckbuildercards_117.png`;
 
             // Agora você tem o conteúdo do arquivo de texto (content).
             // Analise o conteúdo e preencha as informações das cartas e as imagens.
@@ -407,7 +407,7 @@ Predators	|Henchman|	Place this card on top of the opponent's Deck. If they have
         const url = URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.setAttribute("href", url);
-        link.setAttribute("download", "deck_eruma.csv");
+        link.setAttribute("download", "deck_rogueduel.csv");
         link.style.display = "none";
         document.body.appendChild(link);
         link.click();
@@ -422,29 +422,29 @@ Predators	|Henchman|	Place this card on top of the opponent's Deck. If they have
         May be flipped face down.<br>
         <strong>Flying</strong><br>
         May return to your hand.<br>
-        <strong>Impetuous</strong><br>
-        Can attack face down cards.<br>
         <strong>Invulnerable</strong><br>
-        May only be attacked or killed by a "Slayer".<br>
+        May only be attacked or killed by a "Slayer".<br>(dies if it attacks assassins)<br>
         <strong>Obstacle</strong><br>
-        May only be attacked or killed by a "Strongman".<br>
+        May only be attacked or killed by a "Strong".<br>(dies if it attacks assassins)<br>
         <strong>Regenerative</strong><br>
         May return to your hand when it dies.<br>
         <strong>Slayer</strong><br>
         May attack and kill an "Invulnerable".<br>
         <strong>Sneaky</strong><br>
-        Kills the card it blocks (spy only).<br>
-        <strong>Strongman</strong><br>
+        Kills the card it blocks.<br>
+        <strong>Strong</strong><br>
         May attack and kill an "Obstacle".<br>
+        <strong>Vengeful</strong><br>
+        Kills the spy that blocks it.<br>
     </p>
     <h3>Power Speed</h3>
     <p>
 <strong>Quick</strong><br>
-This happens when you trigger it on your turn and it's over.<br>
+The power resolves the turn it is used and it's over.<br>
 <strong>Slow</strong><br>
-This will happen on the opponent's next turn, in any phase, whenever the condition is met. When they pass their turn, it's over.<br>
+The power resolves on the opponent's next turn and it's over.<br>
 <strong>Ongoing</strong><br>
-After triggering it in your turn, this will happen whenever the condition is met, as long as the card remains face-up on the Playfield. The card is exhausted, cannot be ready and you don't need to spend more points.<br>
+The power begins resolving on the turn it is used and continues on both players' turns. The card is not readied in your Phase 2.<br>
     </p>
     <p style="text-align:center"><br><br>Copyright © 2023-2025 Fabio Esteves. All rights reserved.</p>
 </body>
